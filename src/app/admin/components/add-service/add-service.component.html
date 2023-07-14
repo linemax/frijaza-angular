@@ -1,0 +1,31 @@
+<div class="col-md-8 mx-auto mt-4">
+    <mat-toolbar>
+        <button [routerLink]="['../']" mat-icon-button>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h3>New Service</h3>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+    <form (ngSubmit)="submit()" class="p-3 vstack gap-3" [formGroup]="newServiceFormGroup">
+        <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+            <mat-label>Title</mat-label>
+            <input formControlName="title" type="text" matInput>
+            <mat-error *ngFor="let error of newServiceFormGroup.controls.title.errors?.['backend']">{{error}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            <mat-error *ngFor="let error of newServiceFormGroup.controls.title.errors?.['backend']">{{error}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+            <mat-label>Body</mat-label>
+            <textarea matInput formControlName="body"></textarea>
+            <mat-error *ngFor="let error of newServiceFormGroup.controls.body.errors?.['backend']">{{error}}
+            </mat-error>
+        </mat-form-field>
+        <button style="width: fit-content;" type="submit" color="accent" mat-button>Submit</button>
+    </form>
+
+</div>

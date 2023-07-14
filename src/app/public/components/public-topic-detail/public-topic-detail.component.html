@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <div *ngIf="topic" class="col-md-10 mx-auto my-3">
+        <div class="vstack gap-3">
+            <div class="hstack justify-content-between">
+                <button mat-icon-button routerLink="../">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </button>
+            </div>
+            <span class="display-5">{{topic.name|titlecase}}</span>
+            <mat-divider></mat-divider>
+            <span>Related Posts</span>
+            <div class="row row-cols-1 row-cols-md-4 m-0 g-3" *ngIf="topic.posts">
+                <div class="col" *ngFor="let post of topic.posts">
+                    <div class="card h-100">
+                        <a routerLink="{{'/posts/'+post.id}}" *ngIf="post.photo">
+                            <img style="max-height: 180px;min-height: 180px;object-fit: cover;"
+                                src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}"
+                                class="card-img-top" [alt]="post.title"> </a>
+                        <div class="card-title mt-2">{{post.title}}</div>
+                        <div class="card-body">
+                            <div class="hstack gap-2 fw-lighter" style="font-size: 10px;">
+                                <span>Author: {{post.author.fname}}</span>
+                                <span style="font-size: 10px;" class="fw-lighter">|</span>
+                                <span>Read: {{post.read_time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="topic.posts.length ===0" class="text-center display-4 fw-lighter" style="color: chocolate;">
+                No Posts published in this Topic
+            </div>
+        </div>
+    </div>
+</div>

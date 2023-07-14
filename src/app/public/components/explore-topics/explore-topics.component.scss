@@ -1,0 +1,29 @@
+.search-field-container {
+    display: flex;
+    align-items: center;
+    background-color: #cdcfd4;
+    border-radius: 25px;
+    padding: 6px;
+    max-width: 500px;
+  }
+  
+  .search-icon {
+    color: #a8abb1;
+    font-size: 20px;
+    margin-right: 8px;
+  }
+  
+  .search-field-container input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    flex: 1;
+    padding: 8px;
+  }
+  .clear-button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    margin-left: 4px;
+  }
+  

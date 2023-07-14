@@ -1,0 +1,41 @@
+<div class="col-md-10 mx-auto" *ngIf="post">
+    <div class="w-100 hstack justify-content-between">
+        <button [routerLink]="['../']" mat-icon-button>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="hstack gap-2">
+            <button mat-raised-button (click)="prime_photo.click()" *ngIf="post.photo">
+                <span>Update Photo</span>
+            </button>
+            <button mat-raised-button (click)="update(post)" *ngIf="post.photo">
+                <span>Update Post</span>
+            </button>
+            <input type="file" accept="image/*" name="image" [ngModel]="post.photo" #prime_photo
+                (change)="uploadImage($event)" hidden>
+
+        </div>
+    </div>
+    <div class="vstck gap-4">
+        <span class="display-3">{{post.title}}</span>
+        <div class="w-100 d-flex justify-content-center align-items-center"
+            style="height: 100px; border: 1px dotted; border-radius: 10px;" *ngIf="!(post.photo)">
+            <button (click)="prime_photo.click()" mat-stroked-button>Upload Image</button>
+
+            <input type="file" accept="image/*" name="image" #prime_photo (change)="uploadImage($event)" hidden>
+        </div>
+        <div class="ratio ratio-21x9">
+            <img class="" style="object-fit: cover; max-height: 200px;"
+                src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}" alt="">
+
+        </div>
+        <div class="hstack gap-3 fw-lighter" style="font-size: 10px;">
+            <span>Author: {{post.author.fname}}</span>
+            <span>|</span>
+            <span>Read: {{post.read_time}}</span>
+            <span>|</span>
+            <span>Topic: {{post.category.name}}</span>
+        </div>
+        <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)">
+        </div>
+    </div>
+</div>

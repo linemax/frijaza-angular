@@ -1,0 +1,13 @@
+<mat-toolbar>
+    <h3>New Topic</h3>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<form (ngSubmit)="submit()" class="p-3 vstack gap-3" [formGroup]="newTopicGroup">
+    <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" type="text" matInput>
+        <mat-error *ngFor="let error of newTopicGroup.controls.name.errors?.['backend']">{{error}}
+        </mat-error>
+    </mat-form-field>
+    <button style="width: fit-content;" class="ms-auto" type="submit" color="accent" mat-raised-button>Submit</button>
+</form>

@@ -1,0 +1,26 @@
+<div class="container-fluid mb-5">
+    <div class="w-100 ps-2 hstack justify-content-between">
+        <button [routerLink]="['../']" mat-icon-button>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+    </div>
+    <div class="col-md-8 mx-auto" *ngIf="post">
+        <div class="vstack gap-4">
+            <span class="display-3 mb-2">{{post.title}}</span>
+            <div class="ratio ratio-21x9">
+                <img class="overflow-hidden" style="object-fit: cover; max-height: 200px;"
+                    src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}" alt="">
+
+            </div>
+            <div class="hstack gap-3 fw-lighter" style="font-size: 10px;">
+                <span>Author: {{post.author.fname}}</span>
+                <span>|</span>
+                <span>Read: {{post.read_time}}</span>
+                <span>|</span>
+                <span>Topic: {{post.category.name}}</span>
+            </div>
+            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)">
+            </div>
+        </div>
+    </div>
+</div>

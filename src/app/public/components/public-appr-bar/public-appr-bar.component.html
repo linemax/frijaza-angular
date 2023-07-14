@@ -1,0 +1,115 @@
+<!-- <div [hidden]="isToolbarHidden">
+    <mat-toolbar color="accent">
+        <div class="w-100 text-center">
+            <span class="text-center">GoodBye</span>
+        </div>
+        <div class="toolbar-close-button ms-auto">
+            <button mat-icon-button (click)="closeToolbar()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+</div> -->
+<mat-toolbar class="sticky-toolbar" *ngIf="!(isHandset$|async)">
+    <div class="hstack justify-content-between w-100">
+        <div class="hstack gap-5">
+            <a routerLink="/">
+                <img src="../../../../assets/favicon.png">
+            </a>
+            <div class="search-field-container">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input matInput [(ngModel)]="searchQuery" placeholder="Search FreeSoulIjaza" (keydown.enter)="search()">
+                <button mat-stroked-button class="clear-button" *ngIf="searchQuery" (click)="searchQuery=''">
+                    <mat-icon class="clear-icon">close</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="hstack justify-content-around w-50" *ngIf="topics?.data">
+            <a routerLink="" class="nav-link">Home</a>
+            <button mat-button [matMenuTriggerFor]="blogMenu" class="nav-link">
+                <mat-icon>arrow_drop_down</mat-icon>
+                Blog
+            </button>
+            <mat-menu #blogMenu="matMenu">
+                <button routerLink="{{'topics/'}}" mat-menu-item>All</button>
+                <button routerLink="{{'authors/'}}" mat-menu-item>Authors</button>
+                <span class="fw-bold">Categories</span>
+                <mat-divider></mat-divider>
+                <button routerLink="{{'topics/'+ topic.id}}" *ngFor="let topic of topics?.data"
+                    mat-menu-item>{{topic.name}}</button>
+            </mat-menu>
+            <a routerLink="services" class="nav-link">Services</a>
+            <a routerLink="about" class="nav-link">About</a>
+            <a routerLink="contact" class="nav-link">Contact Us</a>
+        </div>
+    </div>
+</mat-toolbar>
+<ng-template [ngIf]="isHandset$ | async">
+    <mat-toolbar class="sticky-top">
+        <mat-toolbar-row>
+            <div class="hstack justify-content-between w-100">
+                <button (click)="drawer.open()" mat-icon-button>
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <a routerLink="/">
+                    <img src="../../../../assets/favicon.png">
+                </a>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-sidenav-container class="sidenav-container">
+        <mat-sidenav #drawer class="sidenav" fixedInViewport
+            [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+            [opened]="(isHandset$ | async) === false">
+            <mat-toolbar>
+                <button class="ms-auto" (click)="drawer.close()" mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar>
+            <mat-nav-list>
+                <a mat-list-item routerLink="users">
+
+                    <div class="hstack gap-3 align-items-center">
+                        <mat-icon>dashboard</mat-icon>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+                <a mat-list-item routerLink="/">
+                    <div class="hstack gap-3 align-items-center">
+                        <span class="material-symbols-outlined">
+                            auto_stories
+                        </span>
+                        <span>Articles</span>
+                    </div>
+                </a>
+                <a mat-list-item routerLink="services">
+
+                    <div class="hstack gap-3 align-items-center">
+                        <span class="material-symbols-outlined">
+                            folder_supervised
+                        </span>
+                        <span> Services</span>
+                    </div>
+                </a>
+                <a mat-list-item routerLink="authors">
+                    <div class="hstack gap-3 align-items-center">
+                        <mat-icon>groups</mat-icon>
+                        Authors
+                    </div>
+                </a>
+                <a mat-list-item routerLink="settings">
+                    <div class="hstack gap-3 align-items-center">
+                        <mat-icon>admin_panel_settings</mat-icon>
+                        Settings
+                    </div>
+                </a>
+                <a mat-list-item routerLink="account">
+                    <div class="hstack gap-3 align-items-center">
+                        <mat-icon>account_circle</mat-icon>
+                        Account
+                    </div>
+                </a>
+            </mat-nav-list>
+        </mat-sidenav>
+    </mat-sidenav-container>
+</ng-template>

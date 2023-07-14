@@ -1,0 +1,15 @@
+<div>
+    <div class="my-3 hstack justify-content-between">
+        <span class="h2"> Topics</span>
+        <button mat-button class="m-3 mb-0" color="accent" (click)="addTopic()">
+            Topic <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <div class="hstack gap-3 overflow-y-auto" *ngIf="topics?.data">
+
+        <mat-chip class="px-lg-5" *ngFor="let topic of topics?.data">
+            {{topic.name}}
+        </mat-chip>
+    </div>
+</div>

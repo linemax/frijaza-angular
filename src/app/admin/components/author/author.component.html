@@ -1,0 +1,114 @@
+<div class="container-fluid col-md-10 mx-auto">
+    <h3>Authors</h3>
+<button routerLink="add" class="m-3 mb-0"
+color="accent" mat-button>
+New Author
+<mat-icon>add</mat-icon>
+</button>
+<div class="ps-3 pt-3">
+    <button (click)="refresh()" mat-button>
+        <mat-icon>refresh</mat-icon>
+        Refresh
+    </button>
+</div>
+<mat-paginator *ngIf="authors" [showFirstLastButtons]="true" (page)="paginate($event)" [length]="authors.total"
+    [pageSize]="authors.per_page"></mat-paginator>
+<!-- <mat-form-field class="w-100" color="accent">
+    <mat-label>Search</mat-label>
+    <input (input)="search()" [formControl]="authorsSearch" matInput #input />
+    <mat-icon matIconSuffix>search</mat-icon>
+</mat-form-field> -->
+
+<ng-template [ngIf]="authorsSearch.value?.length!==0" [ngIfElse]="author_template">
+    <table *ngIf="authorsSearchResults" style="font-size: small;" mat-table [dataSource]="authorsSearchResults">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.searchable.fname }}
+            </td>
+        </ng-container>
+
+        <!-- code Column -->
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Code</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.searchable.code }}
+            </td>
+        </ng-container>
+
+
+        <!-- created Column -->
+        <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.searchable.created_at|date:'mediumDate' }}
+            </td>
+        </ng-container>
+
+        <!-- updated Column -->
+        <ng-container matColumnDef="updated">
+            <th mat-header-cell *matHeaderCellDef>Updated</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.searchable.updated_at|date:'mediumDate' }}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr [matMenuTriggerData]="{type: row.searchable}" [matMenuTriggerFor]="typeMenu" mat-row
+            *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-menu xPosition="before" #typeMenu="matMenu">
+        <ng-template matMenuContent let-type="type">
+            <button [routerLink]="type.id" mat-menu-item><mat-icon>edit</mat-icon>EDIT</button>
+            <button (click)="delete(type)" mat-menu-item><mat-icon>delete</mat-icon>DELETE</button>
+        </ng-template>
+    </mat-menu>
+</ng-template>
+<ng-template #author_template>
+    <table *ngIf="authors" style="font-size: small;" mat-table [dataSource]="authors.data">
+        {{authors.data.length}}
+        <!-- Name Column -->
+        <ng-container matColumnDef="fname">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.fname }}
+            </td>
+        </ng-container>
+
+        <!-- code Column -->
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.user?.email }}
+            </td>
+        </ng-container>
+
+        <!-- created Column -->
+        <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.created_at|date:'mediumDate' }}
+            </td>
+        </ng-container>
+
+        <!-- updated Column -->
+        <ng-container matColumnDef="updated">
+            <th mat-header-cell *matHeaderCellDef>Updated</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.updated_at|date:'mediumDate' }}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr [matMenuTriggerData]="{type: row}" [matMenuTriggerFor]="typeMenu" mat-row
+            *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-menu xPosition="before" #typeMenu="matMenu">
+        <ng-template matMenuContent let-type="type">
+            <button [routerLink]="type.id" mat-menu-item><mat-icon>edit</mat-icon>EDIT</button>
+            <button (click)="delete(type)" mat-menu-item><mat-icon>delete</mat-icon>DELETE</button>
+        </ng-template>
+    </mat-menu>
+</ng-template>
+</div>

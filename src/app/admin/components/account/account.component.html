@@ -1,0 +1,31 @@
+<ng-template [ngIf]="auth.loggedInUserModel.hasValue()">
+    <div class="py-3 py-sm-5">
+        <mat-card [class.mat-elevation-z0]="(isHandset$|async)" class="mx-auto" style="max-width: 600px;">
+            <div class="d-flex justify-content-between px-3 pt-3 pb-1">
+                <div>
+                    <h1>Account</h1>
+                    <h3 class="m-0">{{auth.loggedInUserModel.selected[0].name|titlecase}}</h3>
+                    <p class="d-flex align-items-center gap-1">
+                        <span>{{auth.loggedInUserModel.selected[0].email|lowercase}}</span>
+                        <mat-icon *ngIf="auth.loggedInUserModel.selected[0].email_verified_at!==null" style="font-size: inherit; height: auto; width: auto;" color="primary">verified</mat-icon>
+                    </p>
+                    <button class="mb-2" (click)="auth.logout()" color="warn" mat-button>
+                        <mat-icon>logout</mat-icon>
+                        Sign out
+                    </button>
+                </div>
+                <img class="lg-avatar" src="../../assets/user.svg" alt="">
+            </div>
+            <mat-divider></mat-divider>
+            <mat-chip-listbox (change)="themeService.setTheme($event.value)" class="m-3"
+                [value]="themeService.getTheme()|async" aria-label="Notification status">
+                <mat-chip-option color="accent" [selectable]="(themeService.getTheme()|async)==='dark'" [value]="'light'">
+                    <mat-icon matChipTrailingIcon>light_mode</mat-icon>
+                    Light</mat-chip-option>
+                <mat-chip-option color="accent" [selectable]="(themeService.getTheme()|async)==='light'" [value]="'dark'">
+                    <mat-icon matChipTrailingIcon>dark_mode</mat-icon>
+                    Dark</mat-chip-option>
+            </mat-chip-listbox>
+        </mat-card>
+    </div>
+</ng-template>

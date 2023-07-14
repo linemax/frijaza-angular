@@ -1,1 +1,172 @@
-/* You can add global styles to this file, and also import other style files */
+// Import the necessary modules
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+$primary: mat.define-palette(mat.$orange-palette, 500);
+$accent: mat.define-palette(mat.$green-palette, A700);
+$warn: mat.define-palette(mat.$red-palette);
+
+// Create the light theme
+$light-theme: mat.define-light-theme((color: (primary: $primary,
+        accent: $accent,
+        warn: $warn,
+      )));
+
+// Create the dark theme
+$dark-theme: mat.define-dark-theme((color: (primary: $primary,
+        accent: $accent,
+        warn: $warn,
+      )));
+
+// Mixin for applying the theme styles
+@mixin apply-theme($theme) {
+  @include mat.all-component-densities($theme);
+  @include mat.all-component-typographies($theme);
+  @include mat.all-component-colors($theme);
+}
+
+// Include the light theme styles by default
+@include apply-theme($light-theme);
+
+a {
+  color: mat.get-color-from-palette($primary, 500);
+  text-decoration: none;
+}
+
+.dark-background {
+  background: mat.get-color-from-palette($accent, 50) !important;
+  color: mat.get-color-from-palette($accent, '50-contrast') !important;
+}
+
+// Include the dark theme styles for the '.dark-mode' class
+.dark-mode {
+  @include apply-theme($dark-theme);
+}
+
+// Override the background-color of the body element with the default light theme
+body {
+  background-color: #fafafa;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+// Override the background-color of the body element for the dark mode
+.dark-mode {
+  background-color: #303030;
+  color: white;
+}
+
+.text-accent {
+  color: mat.get-color-from-palette($accent, A700) !important;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-size: 12px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.gap-4 {
+  gap: 24px;
+}
+
+.gap-3 {
+  gap: 16px;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.gap-1 {
+  gap: 4px;
+}
+
+.animated-button {
+  position: relative;
+  animation-name: button-animation;
+  animation-duration: 1s;
+}
+
+@keyframes button-animation {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+.xl-avatar {
+  height: 200px;
+  width: 200px;
+  border-radius: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.lg-avatar {
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.md-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.sm-avatar {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.rounded-0 {
+  border-radius: 0 !important;
+}
+
+overflow-hidden {
+  overflow: hidden;
+}
+
+th {
+  color: #00c853 !important;
+}
+
+.active {
+  background-color: #00c853 !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  background: inherit !important;
+}
+
+// .mdc-text-field {
+//   border-top-left-radius: 0 !important;
+//   border-top-right-radius: 0 !important;
+// }
+
+.mat-mdc-form-field-focus-overlay {
+  background: inherit !important;
+}

@@ -1,0 +1,48 @@
+<mat-toolbar>
+    <button [routerLink]="['../']" mat-icon-button>
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h3>New Post</h3>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<form (ngSubmit)="submit()" class="p-3 vstack gap-3" [formGroup]="newPosFormGroup">
+    <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" type="text" matInput>
+        <mat-error *ngFor="let error of newPosFormGroup.controls.title.errors?.['backend']">{{error}}
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+        <mat-label>Author</mat-label>
+        <mat-select formControlName="author_id" [multiple]="false">
+            <mat-option *ngFor="let author of authors?.data" [value]="author.id">{{author.fname}}</mat-option>
+        </mat-select>
+
+    </mat-form-field>
+    <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category_id" [multiple]="false">
+            <mat-option *ngFor="let topic of topics?.data" [value]="topic.id">{{topic.name}}</mat-option>
+        </mat-select>
+
+    </mat-form-field>
+    <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+        <mat-label>Introduction</mat-label>
+        <input formControlName="introduction" type="text" matInput>
+        <mat-error *ngFor="let error of newPosFormGroup.controls.introduction.errors?.['backend']">{{error}}
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+        <mat-label>Read time</mat-label>
+        <input formControlName="read_time" type="text" matInput>
+        <mat-error *ngFor="let error of newPosFormGroup.controls.read_time.errors?.['backend']">{{error}}
+        </mat-error>
+    </mat-form-field>
+    <div class="editor" *ngIf="editor">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+        </ngx-editor-menu>
+        <ngx-editor [editor]="editor" formControlName="body">
+        </ngx-editor>
+    </div>
+    <button style="width: fit-content;" type="submit" color="accent" mat-button>Submit</button>
+</form>

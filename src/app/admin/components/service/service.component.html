@@ -1,0 +1,44 @@
+<div class="col-md-10 mx-auto mt-3">
+    <div class="hstack justify-content-between">
+        <span class="h3">Services</span>
+        <div class="hstack gap-2">
+            <button routerLink="add" class="m-3 mb-0" color="accent" mat-button>
+                New Service
+                <mat-icon>add</mat-icon>
+            </button>
+            <div class="ps-3 pt-3">
+                <button (click)="refresh()" mat-button>
+                    <mat-icon>refresh</mat-icon>
+                    Refresh
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <ng-template [ngIf]="services">
+
+        <mat-paginator [showFirstLastButtons]="true" (page)="paginate($event)" [length]="services.total"
+            [pageSize]="services.per_page"></mat-paginator>
+
+        <div class="mt-3">
+            <div class="row m-0 row-cols-sm-1 row-cols-1 row-cols-md-3 g-2 g-lg-3">
+                <div class="col" *ngFor="let service of services.data">
+
+                    <div class="card h-100">
+                        <a [routerLink]="service.id" *ngIf="service.photo">
+                            <img src="{{this.base.base_uri_api+ 'photos/'+ service.photo.id+ '/serve'}}"
+                                class="card-img-top" alt="..."> </a>
+                        <a [routerLink]="service.id" *ngIf="!service.photo">
+                            <img class="card-img-top" src="../../../../assets/bg.avif" alt="">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{service.title}}</h5>
+                            <p class="card-text">
+                                {{service.description.slice(0, 100)+'...'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

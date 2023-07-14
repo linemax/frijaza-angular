@@ -1,0 +1,38 @@
+<div class="vstack gap-2">
+    <div>
+        <mat-toolbar>
+            <h4>Get In Touch</h4>
+            <button (click)="close()" class="ms-auto" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar>
+    </div>
+    <div>
+
+        <form (ngSubmit)="submit()" [formGroup]="subscribe" class="vstack gap-2">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Name</mat-label>
+                <input required formControlName="name" autocomplete="name" type="text" matInput>
+                <mat-error *ngFor="let error of subscribe.controls.name.errors?.['backend']">{{error}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Email</mat-label>
+                <input required formControlName="email" autocomplete="email" type="email" matInput>
+                <mat-error *ngFor="let error of subscribe.controls.email.errors?.['backend']">{{error}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Subject</mat-label>
+                <input required formControlName="subject" type="text" matInput>
+                <mat-error *ngFor="let error of subscribe.controls.email.errors?.['backend']">{{error}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Body</mat-label>
+                <textarea required formControlName="body" type="text" matInput></textarea>
+                <mat-error *ngFor="let error of subscribe.controls.email.errors?.['backend']">{{error}}</mat-error>
+            </mat-form-field>
+            <div>
+                <button [disabled]="subscribe.disabled" color="accent" mat-raised-button class="w-100">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

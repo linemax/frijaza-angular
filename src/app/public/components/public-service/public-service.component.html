@@ -1,0 +1,57 @@
+<div class="container-fluid mb-3" *ngIf="serviceResponse?.data">
+    <div class="col-md-10 mx-auto">
+        <div class=" my-4 vstack gap-3">
+            <div class="my-lg-5 my-3">
+                <div class="w-100 text-center">
+
+                    <span class="fs-2">Services we provide
+                    </span>
+                </div>
+
+                <div class="my-4 col-md-10 mx-auto">
+                    <div class="row row-cols-1 row-cols-md-3 g-3 g-lg-4">
+                        <div class="col" *ngFor="let service of serviceResponse?.data">
+                            <div class="card h-100 border-0">
+                                <a routerLink="{{'/services/'}}" *ngIf="service.photo">
+                                    <img style="max-height: 180px;min-height: 180px;object-fit: cover;"
+                                        src="{{this.base.base_uri_api+ 'photos/'+ service.photo.id+ '/serve'}}"
+                                        class="card-img-top" [alt]="service.title"> </a>
+                                <div class="card-body p-2">
+                                    <div class="card-title mt-2">{{service.title|titlecase}}</div>
+                                    <span class="fw-lighter" style="font-size: 10px;">
+                                        {{service.description}}
+                                    </span>
+                                </div>
+                                <div class="card-footer p-0 border-0">
+                                    <button mat-raised-button class="w-100" (click)="serviceDialog(service)">
+                                        <div class="hstack gap-2">
+                                            <span>Read
+                                                More</span>
+                                            <span class="material-symbols-outlined">
+                                                chevron_right
+                                            </span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center vstack gap-2">
+                    <span class="fs-3"> Get in touch with us today </span>
+                    <button mat-raised-button color="primary" class="py-2 px-4 mx-auto" (click)="emailDialog()"
+                        style="width: fit-content;">Get Started</button>
+
+                </div>
+            </div>
+            <mat-divider class="my-4"></mat-divider>
+
+            <span class="fs-1 ">Plans
+            </span>
+            <app-charges class="mb-3"></app-charges>
+            <div class="my-2">
+                <app-footer></app-footer>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="col-md-8 mx-auto my-5">
+        <div class="vstack gap-3">
+            <span class="display-4 text-center">Explore Topics</span>
+
+            <div class="search-field-container mx-auto">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input matInput [(ngModel)]="searchQuery" placeholder="Search all topics" (keydown.enter)="search()">
+                <button mat-stroked-button class="clear-button" *ngIf="searchQuery" (click)="searchQuery=''">
+                    <mat-icon class="clear-icon">close</mat-icon>
+                </button>
+            </div>
+
+            <mat-divider class="my-5"></mat-divider>
+            <ng-template [ngIf]="topics?.data">
+
+                <mat-card class="p-3">
+                    <span class="h3">Recent Topics</span>
+                    <mat-card-content>
+                        <div class="row m-0 row-cols-3 row-cols-md-5 g-3 g-lg-3">
+                            <div class="col" *ngFor="let topic of topics?.data">
+                                <mat-chip routerLink="{{topic.id}}" class="px-lg-5">{{topic.name}}</mat-chip>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <div class="my-3 vstack gap-3" *ngFor="let topic of topics?.data">
+                        <ng-template [ngIf]="topic.posts.length>0">
+                            <span class="fw-bold">{{topic.name}}</span>
+                            <div class="row row-cols-2 row-cols-md-4 m-0">
+                                <a class="col" routerLink="{{'/posts/'+post.id}}"
+                                    *ngFor="let post of topic.posts">{{post.title}}</a>
+                            </div>
+                        </ng-template>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <app-footer class="mb-auto"></app-footer>
+</div>

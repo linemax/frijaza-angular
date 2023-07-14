@@ -1,0 +1,151 @@
+<mat-toolbar *ngIf="!(isHandset$|async)">
+    <div class="d-md-flex d-none w-100">
+        <div class="hstack justify-content-between w-100">
+
+            <a routerLink="/admin">
+                <img src="../../../../assets/favicon.png">
+            </a>
+            <div class="hstack gap-2">
+                <button mat-icon-button>
+                    <span class="material-symbols-outlined">
+                        sms
+                    </span>
+                </button>
+                <button mat-icon-button>
+                    <span class="material-symbols-outlined">
+                        circle_notifications
+                    </span>
+                </button>
+                <button mat-icon-button>
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</mat-toolbar>
+
+<div>
+    <ng-template [ngIf]="auth.loggedInUserModel.hasValue()">
+        <nav color="accent" [fitInkBarToContent]="false" *ngIf="!(isHandset$|async)" mat-tab-nav-bar
+            [mat-stretch-tabs]="false" mat-align-tabs="center" [tabPanel]="tabPanel">
+            <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'admin'" routerLink="/admin">
+                <div class="hstack gap-3 align-items-center">
+                    <mat-icon>home</mat-icon>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'articles'" routerLink="articles">
+                <div class="hstack gap-3 align-items-center">
+                    <span class="material-symbols-outlined">
+                        auto_stories
+                    </span>
+                    <span>Articles</span>
+                </div>
+            </a>
+            <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'services'" routerLink="services">
+                <div class="hstack gap-3 align-items-center">
+                    <span class="material-symbols-outlined">
+                        folder_supervised
+                    </span>
+                    <span> Services</span>
+                </div>
+            </a>
+            <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'authors'" routerLink="authors">
+                <div class="hstack gap-3 align-items-center">
+                    <mat-icon>groups</mat-icon>
+                    Authors
+                </div>
+            </a>
+            <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'settings'" routerLink="settings">
+                <div class="hstack gap-3 align-items-center">
+                    <mat-icon>admin_panel_settings</mat-icon>
+                    Settings
+                </div>
+            </a>
+            <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'account'" routerLink="account">
+                <div class="hstack gap-3 align-items-center">
+                    <mat-icon>account_circle</mat-icon>
+                    account
+                </div>
+            </a>
+        </nav>
+        <mat-divider></mat-divider>
+
+
+        <ng-template [ngIf]="isHandset$ | async">
+            <mat-toolbar color="primary">
+                <mat-toolbar-row>
+                    <div class="hstack justify-content-between w-100">
+                        <button (click)="drawer.open()" mat-icon-button>
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                        <a routerLink="/admin">
+                            <img src="../../../../assets/favicon.png">
+                        </a>
+                    </div>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-sidenav-container class="sidenav-container">
+                <mat-sidenav #drawer class="sidenav" fixedInViewport
+                    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+                    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+                    <mat-toolbar>
+                        <button class="ms-auto" (click)="drawer.close()" mat-icon-button>
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-toolbar>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="users">
+
+                            <div class="hstack gap-3 align-items-center">
+                                <mat-icon>dashboard</mat-icon>
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                        <a mat-list-item routerLink="articles">
+                            <div class="hstack gap-3 align-items-center">
+                                <span class="material-symbols-outlined">
+                                    auto_stories
+                                </span>
+                                <span>Articles</span>
+                            </div>
+                        </a>
+                        <a mat-list-item routerLink="services">
+
+                            <div class="hstack gap-3 align-items-center">
+                                <span class="material-symbols-outlined">
+                                    folder_supervised
+                                </span>
+                                <span> Services</span>
+                            </div>
+                        </a>
+                        <a mat-list-item routerLink="users">
+                            <div class="hstack gap-3 align-items-center">
+                                <mat-icon>groups</mat-icon>
+                                Authors
+                            </div>
+                        </a>
+                        <a mat-list-item routerLink="settings">
+                            <div class="hstack gap-3 align-items-center">
+                                <mat-icon>admin_panel_settings</mat-icon>
+                                Settings
+                            </div>
+                        </a>
+                        <a mat-list-item routerLink="account">
+                            <div class="hstack gap-3 align-items-center">
+                                <mat-icon>account_circle</mat-icon>
+                                Account
+                            </div>
+                        </a>
+                    </mat-nav-list>
+                </mat-sidenav>
+            </mat-sidenav-container>
+        </ng-template>
+    </ng-template>
+    <mat-tab-nav-panel #tabPanel>
+        <router-outlet #outlet="outlet"></router-outlet>
+    </mat-tab-nav-panel>
+
+</div>
