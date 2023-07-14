@@ -26,6 +26,8 @@ import { AddServiceComponent } from './components/add-service/add-service.compon
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
 import { ServiceOutletComponent } from './components/service-outlet/service-outlet.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -58,6 +60,10 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
     CommonModule,
     AdminRoutingModule,
     SharedModule
+  ],
+  providers: [
+
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 export class AdminModule { }
