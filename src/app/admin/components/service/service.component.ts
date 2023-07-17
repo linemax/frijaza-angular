@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Author } from 'src/app/Interfaces/author';
-import { ServicesResponse } from 'src/app/Interfaces/service';
+import { Service, ServicesResponse } from 'src/app/Interfaces/service';
 import { BaseService } from 'src/app/services/base.service';
 
 @Component({
@@ -25,11 +25,11 @@ export class ServiceComponent {
     this.get_services(this.base.base_uri_api + 'services')
   }
 
-  delete(_t67: Author) {
-    this.snackBar.open(`Confirm ${_t67.fname} service Deletion`, 'CONFIRM', { duration: 7000 }).onAction().subscribe(() => {
+  delete(_t67: Service) {
+    this.snackBar.open(`Confirm ${_t67.name} Service Deletion`, 'CONFIRM', { duration: 7000 }).onAction().subscribe(() => {
       this.http.delete(this.base.base_uri_api + `services/${_t67.id}`, { observe: 'response', withCredentials: true }).subscribe({
         next: (response: HttpResponse<any>) => {
-          this.snackBar.open(`service ${_t67.fname} deleted.`, '', { duration: 3000 })
+          this.snackBar.open(`service ${_t67.name} deleted.`, '', { duration: 3000 })
           this.get_services(this.base.base_uri_api + 'services')
         }
       })

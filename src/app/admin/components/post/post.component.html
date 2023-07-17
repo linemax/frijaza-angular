@@ -32,15 +32,15 @@
             <ng-container matColumnDef="author">
                 <th mat-header-cell *matHeaderCellDef>Author</th>
                 <td mat-cell *matCellDef="let element">
-                    {{ element.author?.fname }}
+                    {{ element.author?.name }}
                 </td>
             </ng-container>
 
             <!-- category Column -->
-            <ng-container matColumnDef="category">
-                <th mat-header-cell *matHeaderCellDef>Category</th>
+            <ng-container matColumnDef="categories">
+                <th mat-header-cell *matHeaderCellDef>Categories</th>
                 <td mat-cell *matCellDef="let element">
-                    {{ element.category?.name}}
+                    {{ element.categories.length}}
                 </td>
             </ng-container>
 

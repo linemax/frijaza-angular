@@ -1,23 +1,46 @@
-<mat-toolbar>
-    <button [routerLink]="['../']" mat-icon-button>
-        <mat-icon>arrow_back</mat-icon>
-    </button>
-    <h3>New Author</h3>
-</mat-toolbar>
-<mat-divider></mat-divider>
-<form (ngSubmit)="submit()" class="p-3 vstack gap-3" [formGroup]="newAuthorFormGroup">
-    <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
-        <mat-label>Name</mat-label>
-        <input formControlName="fname" type="text" matInput>
-        <mat-error *ngFor="let error of newAuthorFormGroup.controls.fname.errors?.['backend']">{{error}}
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
-        <mat-label>User</mat-label>
-        <mat-select formControlName="user" [multiple]="false">
-            <mat-option *ngFor="let user of users?.data" [value]="user.id">{{user.name}}</mat-option>
-        </mat-select>
+<div class="container-fluid my-4">
+    <div class="col-md-8 mx-auto">
+        <mat-toolbar>
+            <button [routerLink]="['../']" mat-icon-button>
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <h3>New Author</h3>
+        </mat-toolbar>
+        <mat-divider></mat-divider>
+        <form (ngSubmit)="submit()" class="p-3 vstack gap-3" [formGroup]="newAuthorFormGroup">
+            <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                <mat-label>Name</mat-label>
+                <input formControlName="name" autocomplete="name" type="text" matInput>
+                <mat-error *ngFor="let error of newAuthorFormGroup.controls.name.errors?.['backend']">{{error}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" autocomplete="email" type="text" matInput>
+                <mat-error *ngFor="let error of newAuthorFormGroup.controls.email.errors?.['backend']">{{error}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                <mat-label>Phone</mat-label>
+                <input formControlName="phone" autocomplete="tel" type="text" matInput>
+                <mat-error *ngFor="let error of newAuthorFormGroup.controls.phone.errors?.['backend']">{{error}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                <mat-label>User</mat-label>
+                <mat-select formControlName="user" [multiple]="false">
+                    <mat-option *ngFor="let user of users?.data" [value]="user.id">{{user.name}}</mat-option>
+                </mat-select>
 
-    </mat-form-field>
-    <button style="width: fit-content;" type="submit" color="accent" mat-button>Submit</button>
-</form>
+            </mat-form-field>
+            <div class="editor" *ngIf="editor">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                </ngx-editor-menu>
+                <ngx-editor [editor]="editor" formControlName="bio">
+                </ngx-editor>
+            </div>
+            <button style="width: fit-content;" type="submit" color="accent" mat-button>Submit</button>
+        </form>
+
+    </div>
+</div>

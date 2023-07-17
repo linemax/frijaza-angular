@@ -1,3 +1,31 @@
-<div class="welcome h-75">
-    
-</div>
+<ng-template [ngIf]="!(isHandset$|async)">
+    <div class="my-5">
+        <div class="row row-cols-md-2 m-0">
+            <div class="col">
+                <div class="col-md-10 mx-auto h-100">
+                    <div class="vstack gap-4 justify-content-center h-100">
+                        <span style="font-weight: lighter; font-size: 12px;">Best Blog Content</span>
+                        <span class="display-2 fw-bolder">Connecting the World. One story at A Time.</span>
+                        <span style="font-weight: lighter; font-size: 10px;">Explore diverse perspectives, political
+                            environs, nature and its natures, science with
+                            proven concepts, history unfolding daily and human race evolving.</span>
+
+                        <button mat-raised-button 
+                            style="width: fit-content; border-radius: 20px !important"
+                            color="primary">
+                            <span class="mx-3 text-white">Get Started</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col">
+                <div class="col-md-10 mx-auto">
+                    <img src="../../../../assets/landing/fr.png" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</ng-template>

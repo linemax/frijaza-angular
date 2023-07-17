@@ -21,16 +21,6 @@ export class AuthorComponent {
     this.get_authors(this.base.base_uri_api + 'authors')
   }
 
-  delete(_t67: Author) {
-    this.snackBar.open(`Confirm ${_t67.fname} author Deletion`, 'CONFIRM', { duration: 7000 }).onAction().subscribe(() => {
-      this.http.delete(this.base.base_uri_api + `authors/${_t67.id}`, { observe: 'response', withCredentials: true }).subscribe({
-        next: (response: HttpResponse<any>) => {
-          this.snackBar.open(`author ${_t67.fname} deleted.`, '', { duration: 3000 })
-          this.get_authors(this.base.base_uri_api + 'authors')
-        }
-      })
-    })
-  }
 
   pageEevent: PageEvent = new PageEvent()
 
@@ -84,7 +74,7 @@ export class AuthorComponent {
   private debounceTime = 800;
 
 
-  displayedColumns: string[] = ['fname', 'post', 'post2'];
+  displayedColumns: string[] = ['name', 'post', 'post2'];
 
   get_authors(url: string, pageEvent?: PageEvent) {
     this.http.get(url, { withCredentials: true, observe: 'response', params: new HttpParams().append('with', 'posts,user, photo') }).subscribe({

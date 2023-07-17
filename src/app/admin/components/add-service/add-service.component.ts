@@ -16,9 +16,8 @@ export class AddServiceComponent {
 
 
   newServiceFormGroup = new FormGroup({
-    title: new FormControl(''),
+    name: new FormControl(''),
     description: new FormControl(''),
-    body: new FormControl(''),
   })
 
   constructor(private router: Router, private snack: MatSnackBar, private base: BaseService, private http: HttpClient) {
@@ -30,7 +29,7 @@ export class AddServiceComponent {
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.newServiceFormGroup.enable()
-          this.snack.open(`Post ${this.newServiceFormGroup.controls.title.value} succefully added!`, '', { duration: 3000 })
+          this.snack.open(`Post ${this.newServiceFormGroup.controls.name.value} succefully added!`, '', { duration: 3000 })
           this.router.navigate(['admin/services'])
         }
       }, error: (errorResponse: HttpErrorResponse) => {
@@ -38,14 +37,11 @@ export class AddServiceComponent {
         switch (errorResponse.status) {
           case 422:
             if (errorResponse.error['errors']) {
-              if (errorResponse.error['errors'].title) {
-                this.newServiceFormGroup.controls.title.setErrors({ backend: errorResponse.error['errors'].title })
+              if (errorResponse.error['errors'].name) {
+                this.newServiceFormGroup.controls.name.setErrors({ backend: errorResponse.error['errors'].name })
               }
               if (errorResponse.error['errors'].description) {
                 this.newServiceFormGroup.controls.description.setErrors({ backend: errorResponse.error['errors'].description })
-              }
-              if (errorResponse.error['errors'].body) {
-                this.newServiceFormGroup.controls.body.setErrors({ backend: errorResponse.error['errors'].body })
               }
             }
         }

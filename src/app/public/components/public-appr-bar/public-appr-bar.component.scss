@@ -42,5 +42,14 @@
   .sticky-toolbar {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 1000;
   }
+
+  .sidenav  {
+    width: 100%;
+    background-image: url('../../../../assets/sidenav/side1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1000;
+  }
+

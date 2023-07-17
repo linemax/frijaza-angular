@@ -13,6 +13,18 @@
             <input type="file" accept="image/*" name="image" [ngModel]="post.photo" #prime_photo
                 (change)="uploadImage($event)" hidden>
 
+            <div class="progress">
+
+                <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress"
+                    *ngIf="uploadProgress">
+
+                </mat-progress-bar>
+
+                <mat-icon class="cancel-upload" (click)="cancelUpload()"
+                    *ngIf="uploadProgress">delete_forever</mat-icon>
+
+            </div>
+
         </div>
     </div>
     <div class="vstck gap-4">
@@ -25,15 +37,15 @@
         </div>
         <div class="ratio ratio-21x9">
             <img class="" style="object-fit: cover; max-height: 200px;"
-                src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}" alt="">
+                src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}" alt="">
 
         </div>
         <div class="hstack gap-3 fw-lighter" style="font-size: 10px;">
-            <span>Author: {{post.author.fname}}</span>
+            <span>Author: {{post.author.name}}</span>
             <span>|</span>
             <span>Read: {{post.read_time}}</span>
             <span>|</span>
-            <span>Topic: {{post.category.name}}</span>
+            <span *ngFor="let topic of post.categories">Topic: {{topic.name}}</span>
         </div>
         <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)">
         </div>

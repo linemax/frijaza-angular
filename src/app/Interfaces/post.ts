@@ -12,7 +12,7 @@ export interface Post {
     updated_at: Date
     photo: Photo
     author: Author,
-    category: Topic
+    categories: Topic[]
 
 }
 

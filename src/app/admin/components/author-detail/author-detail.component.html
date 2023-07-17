@@ -10,6 +10,17 @@
             </button>
             <input type="file" accept="image/*" name="image" [ngModel]="author?.photo" #prime_photo
                 (change)="uploadImage($event)" hidden>
+            <div class="progress">
+
+                <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress"
+                    *ngIf="uploadProgress">
+
+                </mat-progress-bar>
+
+                <mat-icon class="cancel-upload" (click)="cancelUpload()"
+                    *ngIf="uploadProgress">delete_forever</mat-icon>
+
+            </div>
         </div>
     </div>
 
@@ -18,18 +29,15 @@
             <div class="col-md-4 col-12">
                 <mat-card class="px-2 py-5 border-rounded">
                     <div class="hstack gap-2">
-                        
+
                         <img class="ratio ratio-4x3 rounded-circle "
                             style="object-fit: fill;max-height: 120px; max-width: 100px"
-                            src="{{this.base.base_uri_api+ 'photos/'+ author.photo.id+ '/serve'}}" alt="">
+                            src="{{this.base.base_uri_api+ 'photos/'+ author.photo?.id+ '/serve'}}" alt="">
                         <div class="vstack gap-3">
 
-                            <h3 class="m-0">{{author.fname|titlecase}}</h3>
+                            <h3 class="m-0">{{author.name|titlecase}}</h3>
                             <p class="d-flex align-items-center gap-1">
-                                <span>{{author.user.email|lowercase}}</span>
-                                <mat-icon *ngIf="author.user?.email_verified_at!==null"
-                                    style="font-size: inherit; height: auto; width: auto;"
-                                    color="primary">verified</mat-icon>
+                                <span>{{author.email|lowercase}}</span>
                             </p>
                         </div>
                     </div>
@@ -43,9 +51,29 @@
                                 <mat-form-field style="width: 100%;" appearance="outline" [subscriptSizing]="'dynamic'"
                                     color="accent">
                                     <mat-label>Name</mat-label>
-                                    <input formControlName="fname" type="text" matInput>
+                                    <input formControlName="name" type="text" matInput>
                                     <mat-error
-                                        *ngFor="let error of authFormGroup.controls.fname.errors?.['backend']">{{error}}
+                                        *ngFor="let error of authFormGroup.controls.name.errors?.['backend']">{{error}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field style="width: 100%;" appearance="outline" [subscriptSizing]="'dynamic'"
+                                    color="accent">
+                                    <mat-label>Phone</mat-label>
+                                    <input formControlName="phone" type="tel" matInput>
+                                    <mat-error
+                                        *ngFor="let error of authFormGroup.controls.phone.errors?.['backend']">{{error}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field style="width: 100%;" appearance="outline" [subscriptSizing]="'dynamic'"
+                                    color="accent">
+                                    <mat-label>Email</mat-label>
+                                    <input formControlName="email" type="email" matInput>
+                                    <mat-error
+                                        *ngFor="let error of authFormGroup.controls.email.errors?.['backend']">{{error}}
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -58,6 +86,14 @@
                                         *ngFor="let error of authFormGroup.controls.user.errors?.['backend']">{{error}}
                                     </mat-error>
                                 </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="px-3">
+                            <div class="editor" *ngIf="editor">
+                                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                                </ngx-editor-menu>
+                                <ngx-editor [editor]="editor" formControlName="bio">
+                                </ngx-editor>
                             </div>
                         </div>
                         <div>

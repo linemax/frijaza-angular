@@ -21,10 +21,10 @@ export class AuthorComponent {
   }
 
   delete(_t67: Author) {
-    this.snackBar.open(`Confirm ${_t67.fname} author Deletion`, 'CONFIRM', { duration: 7000 }).onAction().subscribe(() => {
+    this.snackBar.open(`Confirm ${_t67.name} author Deletion`, 'CONFIRM', { duration: 7000 }).onAction().subscribe(() => {
       this.http.delete(this.base.base_uri_api + `authors/${_t67.id}`, { observe: 'response', withCredentials: true }).subscribe({
         next: (response: HttpResponse<any>) => {
-          this.snackBar.open(`author ${_t67.fname} deleted.`, '', { duration: 3000 })
+          this.snackBar.open(`author ${_t67.name} deleted.`, '', { duration: 3000 })
           this.get_authors(this.base.base_uri_api + 'authors')
         }
       })
@@ -83,7 +83,7 @@ export class AuthorComponent {
   private debounceTime = 800;
 
 
-  displayedColumns: string[] = ['fname', 'email', 'updated', 'created'];
+  displayedColumns: string[] = ['name', 'email',  'phone', 'updated', 'created'];
 
   get_authors(url: string, pageEvent?: PageEvent) {
     this.http.get(url, { withCredentials: true, observe: 'response', params: new HttpParams().append('with', 'posts,user, photo') }).subscribe({

@@ -4,7 +4,10 @@ import { Post } from "./post"
 
 export interface Author {
     id: string
-    fname: string
+    name: string
+    email: string
+    phone: string
+    bio: string
     user: User
     created_at: Date
     updated_at: Date

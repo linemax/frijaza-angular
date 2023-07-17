@@ -8,5 +8,5 @@ export const publicArticleResolver: ResolveFn<Post> = (route, state) => {
 
   const http = inject(HttpClient)
   const base = inject(BaseService)
-  return http.get<Post>(base.base_uri_api + 'posts/' + route.paramMap.get('id'), { withCredentials: true, observe: "body", params: new HttpParams().append('with', 'category, author, author.photo, photo') });
+  return http.get<Post>(base.base_uri_api + 'posts/' + route.paramMap.get('id'), { withCredentials: true, observe: "body", params: new HttpParams().append('with', 'categories, author, author.photo, photo') });
 };

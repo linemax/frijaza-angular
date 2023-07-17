@@ -1,12 +1,13 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams, HttpEventType } from '@angular/common/http';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map, shareReplay } from 'rxjs';
+import { Editor, Toolbar, Validators } from 'ngx-editor';
+import { Observable, Subscription, map, shareReplay } from 'rxjs';
 import { User } from 'src/app/Interfaces/User';
 import { Author } from 'src/app/Interfaces/author';
 import { Post, PostsResponse } from 'src/app/Interfaces/post';
@@ -17,8 +18,29 @@ import { BaseService } from 'src/app/services/base.service';
   templateUrl: './author-detail.component.html',
   styleUrls: ['./author-detail.component.scss']
 })
-export class AuthorDetailComponent {
+export class AuthorDetailComponent implements OnInit, OnDestroy {
+  editor: Editor | undefined | null;
 
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+
+
+  ngOnInit(): void {
+    this.editor = new Editor();
+  }
+
+  ngOnDestroy(): void {
+    if (this.editor)
+      this.editor.destroy();
+  }
 
   pageEevent: PageEvent = new PageEvent()
 
@@ -46,15 +68,16 @@ export class AuthorDetailComponent {
       ({ author }) => {
         this.author = author
         if (this.author) {
-          this.authFormGroup.controls.fname.setValue(this.author.fname)
+          this.authFormGroup.controls.name.setValue(this.author.name)
+          this.authFormGroup.controls.email.setValue(this.author.email)
+          this.authFormGroup.controls.phone.setValue(this.author.phone)
+          this.authFormGroup.controls.bio.setValue(this.author.bio)
           this.authFormGroup.controls.user.setValue(this.author.user?.name)
         }
       });
     this.getPosts(this.base.base_uri_api + 'posts')
   }
 
-  ngOnInit(): void {
-  }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -82,15 +105,24 @@ export class AuthorDetailComponent {
         next: (response: HttpResponse<any>) => {
           if (response.ok) {
             this.authFormGroup.enable()
-            this.snack.open(`${this.authFormGroup.controls.fname.value} edited!`, '', { duration: 3000 })
+            this.snack.open(`${this.authFormGroup.controls.name.value} edited!`, '', { duration: 3000 })
           }
         }, error: (errorResponse: HttpErrorResponse) => {
           this.authFormGroup.enable()
           switch (errorResponse.status) {
             case 422:
               if (errorResponse.error['errors']) {
-                if (errorResponse.error['errors'].fname) {
-                  this.authFormGroup.controls.fname.setErrors({ backend: errorResponse.error['errors'].fname })
+                if (errorResponse.error['errors'].name) {
+                  this.authFormGroup.controls.name.setErrors({ backend: errorResponse.error['errors'].name })
+                }
+                if (errorResponse.error['errors'].email) {
+                  this.authFormGroup.controls.email.setErrors({ backend: errorResponse.error['errors'].email })
+                }
+                if (errorResponse.error['errors'].phone) {
+                  this.authFormGroup.controls.phone.setErrors({ backend: errorResponse.error['errors'].phone })
+                }
+                if (errorResponse.error['errors'].bio) {
+                  this.authFormGroup.controls.bio.setErrors({ backend: errorResponse.error['errors'].bio })
                 }
               }
           }
@@ -102,25 +134,48 @@ export class AuthorDetailComponent {
     }
   }
 
+
+
+  uploadProgress: number | undefined | null;
+  uploadSub: Subscription | undefined | null;
+
   uploadImage(event: any) {
     if (event.target.files[0]) {
       let form = new FormData()
       form.append('photo', event.target.files[0])
-      this.http.post<any>(
+      const upload$ = this.http.post<any>(
         this.base.base_uri_api + 'authors/' + this.author?.id + '/photo',
         form,
-        { observe: "response", withCredentials: true }).subscribe({
+        { observe: "response", withCredentials: true, reportProgress: true }).subscribe({
           next: (response: HttpResponse<any>) => {
             if (response.ok) {
-              this.snack.open('upload complete', '', { duration: 5000 })
+              if (event.type == HttpEventType.UploadProgress) {
+                this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+              }
+              this.snack.open('Upload complete', '', { duration: 5000 })
             }
           }
         })
     }
   }
 
+
+  cancelUpload() {
+    this.uploadSub?.unsubscribe();
+    this.reset();
+  }
+
+  reset() {
+    this.uploadProgress = null;
+    this.uploadSub = null;
+  }
+
   authFormGroup = new FormGroup({
-    fname: new FormControl(''),
+    name: new FormControl(''),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+    bio: new FormControl(''),
     user: new FormControl({ value: '', disabled: true }),
+    editorContent: new FormControl('', Validators.required())
   })
 }

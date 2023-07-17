@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
@@ -32,7 +32,7 @@ export class BlogArticlesComponent {
 
   topics: TopicsResponse | undefined | null
   posts: PostsResponse | undefined | null
-  postInstance: Post | undefined | null
+  @Input() post: Post | undefined | null
 
   isLoading: boolean = true
   hidePageSize = false;
@@ -45,10 +45,14 @@ export class BlogArticlesComponent {
   constructor(private dialog: MatDialog, private breakpointObserver: BreakpointObserver, private http: HttpClient, public base: BaseService, private activateRoute: ActivatedRoute,) {
     this.activateRoute.data.subscribe(
       ({ post }) => {
-        this.postInstance = post
+        this.post = post
       });
     this.getTopics(this.base.base_uri_api + 'categories')
     this.getPosts(this.base.base_uri_api + 'posts')
+    this.getLatestPost()
+    console.log(this.post);
+    
+
   }
 
   onscroll() {
@@ -84,7 +88,18 @@ export class BlogArticlesComponent {
   }
 
   getPosts(url: string, pageEevent?: PageEvent) {
-    this.http.get(url, { observe: 'response', params: new HttpParams().append('with', 'category, author,author.photo, photo') }).subscribe({
+    this.http.get(url, { observe: 'response', params: new HttpParams().append('with', 'categories, author,author.photo, photo') }).subscribe({
+      next: (response: HttpResponse<any>) => {
+        if (response.ok) {
+          this.posts = response.body
+        }
+      },
+    })
+
+  }
+
+  getLatestPost() {
+    this.http.get(this.base.base_uri_api + `posts/latest/${this.posts?.data[0]?.id}`, { observe: 'response', params: new HttpParams().append('with', 'categories, author,author.photo, photo') }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.posts = response.body

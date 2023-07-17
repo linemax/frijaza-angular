@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
 import { User } from 'src/app/Interfaces/User';
@@ -28,6 +29,7 @@ export class AuthorDetailComponent {  User: User | null | undefined
     private http: HttpClient,
     private snack: MatSnackBar,
     private breakpointObserver: BreakpointObserver,
+    public sanitizer: DomSanitizer
 
   ) {
     this.activateRoute.data.subscribe(

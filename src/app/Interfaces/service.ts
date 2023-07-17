@@ -2,9 +2,8 @@ import { Photo } from "./photo"
 
 export interface Service {
     id: string
-    title: string
+    name: string
     description: string
-    body: string
     photo: Photo
     created_at: Date
     updated_at: Date

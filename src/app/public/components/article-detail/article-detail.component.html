@@ -13,11 +13,11 @@
 
             </div>
             <div class="hstack gap-3 fw-lighter" style="font-size: 10px;">
-                <span>Author: {{post.author.fname}}</span>
+                <span>Author: {{post.author.name}}</span>
                 <span>|</span>
                 <span>Read: {{post.read_time}}</span>
                 <span>|</span>
-                <span>Topic: {{post.category.name}}</span>
+                <span *ngFor="let topic of post.categories">Topic: {{topic.name}}</span>
             </div>
             <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)">
             </div>

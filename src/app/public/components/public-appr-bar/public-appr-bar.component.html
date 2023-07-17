@@ -45,7 +45,7 @@
     </div>
 </mat-toolbar>
 <ng-template [ngIf]="isHandset$ | async">
-    <mat-toolbar class="sticky-top">
+    <mat-toolbar class="">
         <mat-toolbar-row>
             <div class="hstack justify-content-between w-100">
                 <button (click)="drawer.open()" mat-icon-button>
@@ -61,20 +61,23 @@
         <mat-sidenav #drawer class="sidenav" fixedInViewport
             [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
             [opened]="(isHandset$ | async) === false">
-            <mat-toolbar>
+            <mat-toolbar class="sticky-toolbar">
+                <a routerLink="/">
+                    <img src="../../../../assets/favicon.png">
+                </a>
                 <button class="ms-auto" (click)="drawer.close()" mat-icon-button>
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-toolbar>
-            <mat-nav-list>
-                <a mat-list-item routerLink="users">
+            <mat-nav-list class="container-fluid">
+                <a mat-list-item routerLink="/" (click)="drawer.close()">
 
                     <div class="hstack gap-3 align-items-center">
-                        <mat-icon>dashboard</mat-icon>
-                        <span>Dashboard</span>
+                        <mat-icon>home</mat-icon>
+                        <span>Home</span>
                     </div>
                 </a>
-                <a mat-list-item routerLink="/">
+                <a mat-list-item routerLink="/" (click)="drawer.close()">
                     <div class="hstack gap-3 align-items-center">
                         <span class="material-symbols-outlined">
                             auto_stories
@@ -82,7 +85,7 @@
                         <span>Articles</span>
                     </div>
                 </a>
-                <a mat-list-item routerLink="services">
+                <a mat-list-item routerLink="services" (click)="drawer.close()">
 
                     <div class="hstack gap-3 align-items-center">
                         <span class="material-symbols-outlined">
@@ -91,22 +94,22 @@
                         <span> Services</span>
                     </div>
                 </a>
-                <a mat-list-item routerLink="authors">
+                <a mat-list-item routerLink="authors" (click)="drawer.close()">
                     <div class="hstack gap-3 align-items-center">
-                        <mat-icon>groups</mat-icon>
+                        <mat-icon>persons</mat-icon>
                         Authors
                     </div>
                 </a>
-                <a mat-list-item routerLink="settings">
+                <a mat-list-item routerLink="about" (click)="drawer.close()">
                     <div class="hstack gap-3 align-items-center">
-                        <mat-icon>admin_panel_settings</mat-icon>
-                        Settings
+                        <mat-icon>info</mat-icon>
+                        About Us
                     </div>
                 </a>
-                <a mat-list-item routerLink="account">
+                <a mat-list-item routerLink="im_digitals" (click)="drawer.close()">
                     <div class="hstack gap-3 align-items-center">
-                        <mat-icon>account_circle</mat-icon>
-                        Account
+                        I.M Digitals
+                        <mat-icon>open_in_new</mat-icon>
                     </div>
                 </a>
             </mat-nav-list>

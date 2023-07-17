@@ -18,7 +18,7 @@ export class PostComponent {
 
   pageEevent: PageEvent = new PageEvent()
 
-  displayedColumns: string[] = ['title', 'author', 'category', 'updated', 'created'];
+  displayedColumns: string[] = ['title', 'author', 'categories', 'updated', 'created'];
 
   paginate($event: PageEvent) {
     this.getPosts(this.base.base_uri_api + `authors?page=${$event.pageIndex + 1}&pageSize=${$event.pageSize}`, $event)
@@ -44,7 +44,7 @@ export class PostComponent {
 
 
   getPosts(url: string, pageEvent?: PageEvent) {
-    this.http.get(url, { observe: 'response', withCredentials: true, params: new HttpParams().append('with', 'category, author, photo') }).subscribe({
+    this.http.get(url, { observe: 'response', withCredentials: true, params: new HttpParams().append('with', 'categories, author, photo') }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.posts = response.body

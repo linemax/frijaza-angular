@@ -1,187 +1,195 @@
-<div class=" container-fluid col-md-10 my-3">
-    <div class="hstack justify-content-between my-3">
-        <span class="h3">Trending on FreeSoulIjaza</span>
-        <button color="accent" mat-button (click)="refresh()">
-            <div class="hstack justify-content-center gap-2">
-                <span class="material-symbols-outlined">
-                    refresh
-                </span>
-                <span>Refresh</span>
-            </div>
-        </button>
-    </div>
-    <div class="row m-0 my-3 ">
-        <div class="col-md-8" *ngIf="posts?.data">
-            <div *ngIf="!(isHandset$|async)">
-                <div class="vstack gap-3 my-4" *ngFor="let post of posts?.data">
-                    <mat-divider></mat-divider>
-                    <div class="hstack gap-3">
-                        <mat-chip class="px-3 pointer-event" routerLink="{{'/topics/'+post.category.id}}"
-                            style="width: fit-content;">{{post.category.name}}</mat-chip>
+<ng-template [ngIf]="!(isHandset$|async)">
+    <div class=" container-fluid col-md-11 my-3">
+        <div class="hstack justify-content-between my-3">
+            <span class="h3">Trending on FreeSoulIjaza</span>
+            <button color="accent" mat-button (click)="refresh()">
+                <div class="hstack justify-content-center gap-2">
+                    <span class="material-symbols-outlined">
+                        refresh
+                    </span>
+                    <span>Refresh</span>
+                </div>
+            </button>
+        </div>
+        <div class="row m-0 my-3 ">
+            <div class="col-md-9" *ngIf="posts?.data">
+                <div *ngIf="!(isHandset$|async)">
+                    <div class="vstack gap-3 my-4"  style="font-size: 10px;" *ngFor="let post of posts?.data">
+                        <mat-divider></mat-divider>
+                        <div class="hstack gap-3">
+                            <mat-chip class="px-3 pointer-event" *ngFor="let topic of post.categories" routerLink="{{'/topics/'+topic.id}}"
+                                style="width: fit-content;">{{topic.name}}</mat-chip>
 
-                    </div>
-                    <a routerLink="{{'/posts/'+post.id}}" class="h2 text-decoration-none text-dark">{{post.title}}</a>
-                    <div>
-                        <div class="row m-0 ">
-                            <div class="col-md-6" style="max-width: 200px;object-fit: cover; border-radius: 25px;">
-                                <a routerLink="{{'/posts/'+post.id}}" class="h2 text-decoration-none text-dark">
-                                    <img src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}"
-                                        class=" ratio ratio-21x9" [alt]="post.title">
-                                </a>
-                            </div>
-                            <div class="col-md-6 ">
-                                <div class="vstack justify-content-between h-100 ">
-                                    <div>
-                                        <span class="fw-lighter">
-                                            {{post.introduction.slice(0,400)+'...'}}
-                                        </span>
-                                    </div>
-                                    <div class="hstack gap-3">
-                                        <div class="hstack gap-2">
-                                            <button routerLink="{{'/authors/'+post.author.id}}" mat-mini-fab>
+                        </div>
+                        <a routerLink="{{'/posts/'+post.id}}"
+                            class="h2 text-decoration-none text-dark">{{post.title}}</a>
+                        <div>
+                            <div class="row m-0 ">
+                                <div class="col-md-6" style="max-width: 200px;object-fit: cover; border-radius: 25px;">
+                                    <a routerLink="{{'/posts/'+post.id}}" class="h2 text-decoration-none text-dark">
+                                        <img src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}"
+                                            class=" ratio ratio-21x9" [alt]="post.title">
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="vstack justify-content-between h-100 ">
+                                        <div>
+                                            <span class="fw-lighter">
+                                                {{post.introduction.slice(0,400)+'...'}}
+                                            </span>
+                                        </div>
+                                        <div class="hstack gap-3">
+                                            <div class="hstack gap-2">
+                                                <button routerLink="{{'/authors/'+post.author?.id}}" mat-mini-fab>
 
-                                                <a routerLink="{{'/authors/'+post.id}}" *ngIf="post.author?.photo">
-                                                    <img style="max-height: 180px;object-fit: cover;"
-                                                        src="{{this.base.base_uri_api+ 'photos/'+ post.author.photo.id+ '/serve'}}"
-                                                        class="card-img-top rounded-circle" [alt]="post.title">
-                                                </a></button>
-                                            <button routerLink="{{'/authors/'+post.author.id}}"
-                                                *ngIf="!(post.author?.photo)"
-                                                mat-mini-fab>{{post.author.fname.slice(0,1)}}</button>
-                                            <span>{{post.author.fname}}</span>
-                                        </div><span>|</span>
-                                        <span>{{post.read_time}}</span><span>|</span>
-                                        <span>{{post.created_at|date:'mediumDate'}}</span>
+                                                    <a routerLink="{{'/authors/'+post.id}}" *ngIf="post.author?.photo">
+                                                        <img style="max-height: 180px;object-fit: cover;"
+                                                            src="{{this.base.base_uri_api+ 'photos/'+ post.author.photo?.id+ '/serve'}}"
+                                                            class="card-img-top rounded-circle" [alt]="post.title">
+                                                    </a></button>
+                                                <button routerLink="{{'/authors/'+post.author.id}}"
+                                                    *ngIf="!(post.author?.photo)"
+                                                    mat-mini-fab>{{post.author.name.slice(0,1)}}</button>
+                                                <span>{{post.author.name}}</span>
+                                            </div><span>|</span>
+                                            <span>{{post.read_time}}</span><span>|</span>
+                                            <span>{{post.created_at|date:'mediumDate'}}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="vstack gap-4 mb-3" *ngIf="(isHandset$|async)">
-                <div class="card" *ngFor="let post of posts?.data">
-                    <a routerLink="{{'/posts/'+post.id}}" *ngIf="post.photo">
-                        <img style="max-height: 180px;object-fit: cover;"
-                            src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}" class="card-img-top"
-                            [alt]="post.title"> </a>
-                    <div class="card-body">
-                        <span>
-                            {{post.title}}
-                        </span>
-                        <div class="hstack gap-2">
-                            <span style="font-size: 10px;" class="fw-lighter">Author:
-                                {{post.author.fname|titlecase}}</span>
-                            <span style="font-size: 10px;" class="fw-lighter">|</span>
-                            <span style="font-size: 10px;" class="fw-lighter">Read: {{post.read_time}}</span>
-                            <span style="font-size: 10px;" class="fw-lighter">|</span>
-                            <span style="font-size: 10px;" class="fw-bold">{{post.category.name|
-                                titlecase}}</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <mat-paginator class="border-1 w-100 mb-3" *ngIf="posts" [showFirstLastButtons]="true"
-                (page)="paginate($event)" [length]="posts.total" [hidePageSize]="true"
-                [pageSize]="posts.per_page"></mat-paginator>
-        </div>
-        <div class="col-md-4 mx-auto" *ngIf="topics?.data">
-            <div class="vstack gap-4 category">
-                <div class="my-4 vstack gap-3">
-                    <span class="h3">Topics</span>
-
-                    <div class="search-field-container">
-                        <mat-icon class="search-icon">search</mat-icon>
-                        <input matInput [(ngModel)]="searchQuery" placeholder="Search Articles"
-                            (keydown.enter)="search()">
-                    </div>
-                    <div class=" row m-0 row-cols-sm-2 row-cols-3 row-cols-md-3 g-2 g-lg-3">
-                        <div class="col" *ngFor="let topic of topics?.data">
-                            <mat-chip routerLink="{{'/topics/'+ topic.id}}">{{topic.name}}</mat-chip>
-                        </div>
-                    </div>
-                </div>
-                <a class="text-decoration-none ms-1" routerLink="/topics">See more topics</a>
-
-                <div class="vstack gap-3">
-                    <mat-card class="p-3">
-
-                        <div class="hstack gap-2 mat-card-title">
-                            <span class="material-symbols-outlined" style="size: 32px;">
-                                mail
+                <div class="vstack gap-4 mb-3" *ngIf="(isHandset$|async)">
+                    <div class="card" *ngFor="let post of posts?.data">
+                        <a routerLink="{{'/posts/'+post.id}}" *ngIf="post.photo">
+                            <img style="max-height: 180px;object-fit: cover;"
+                                src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}"
+                                class="card-img-top" [alt]="post.title"> </a>
+                        <div class="card-body">
+                            <span>
+                                {{post.title}}
                             </span>
-                            <span class="h4"> Catch Latest Articles
-                                in Your Inbox</span>
+                            <div class="hstack gap-2">
+                                <span style="font-size: 10px;" class="fw-lighter">Author:
+                                    {{post.author.name|titlecase}}</span>
+                                <span style="font-size: 10px;" class="fw-lighter">|</span>
+                                <span style="font-size: 10px;" class="fw-lighter">Read: {{post.read_time}}</span>
+                                <span style="font-size: 10px;" class="fw-lighter">|</span>
+                            </div>
                         </div>
-                        <mat-divider></mat-divider>
-                        <div class="my-3 vstack gap-3">
-                            <span>All fields are required</span>
-                            <form [formGroup]="subForm" (ngSubmit)="submit()" class="d-flex flex-column"
-                                style="gap: 10px;">
-                                <mat-form-field appearance="outline" color="accent" subscriptSizing="dynamic">
-                                    <mat-label>Name</mat-label>
-                                    <mat-icon matSuffix>name</mat-icon>
-                                    <input autocomplete="name" required matInput formControlName="name"
-                                        placeholder="name" />
-                                </mat-form-field>
-                                <mat-error *ngFor="let error of subForm.controls.name.errors?.['backend']">{{error}}
-                                </mat-error>
+                    </div>
 
-                                <mat-form-field appearance="outline" color="accent" subscriptSizing="dynamic">
-                                    <mat-label>Email</mat-label>
-                                    <mat-icon matSuffix>email</mat-icon>
-                                    <input autocomplete="email" required matInput formControlName="email"
-                                        placeholder="Email" />
-                                </mat-form-field>
-                                <mat-error *ngFor="let error of subForm.controls.email.errors?.['backend']">{{error}}
-                                </mat-error>
-                                <button mat-raised-button color="primary" class="py-3" type="submit"
-                                    [disabled]="subForm.invalid||subForm.disabled">Submit</button>
-                            </form>
+                </div>
+
+                <mat-paginator class="border-1 w-100 mb-3" *ngIf="posts" [showFirstLastButtons]="true"
+                    (page)="paginate($event)" [length]="posts.total" [hidePageSize]="true"
+                    [pageSize]="posts.per_page"></mat-paginator>
+            </div>
+            <div class="col-md-3 mx-auto" *ngIf="topics?.data">
+                <div class="vstack gap-4 category">
+                    <div class="my-4 vstack gap-3">
+                        <span class="h3">Topics</span>
+
+                        <div class="search-field-container">
+                            <mat-icon class="search-icon">search</mat-icon>
+                            <input matInput [(ngModel)]="searchQuery" placeholder="Search Articles"
+                                (keydown.enter)="search()">
                         </div>
-                        <div></div>
-                    </mat-card>
-                    <div class="my-4">
-                        <span class="h3">Follow Us</span>
-                        <div class="hstack gap-2 mt-1">
-                            <a target="_blank" href="https://www.facebook.com/profile.php?id=100085304978384">
+                        <div class=" row m-0 row-cols-sm-2 row-cols-3 row-cols-md-3 g-2 g-lg-3">
+                            <div class="col" *ngFor="let topic of topics?.data">
+                                <mat-chip routerLink="{{'/topics/'+ topic.id}}">{{topic.name}}</mat-chip>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="text-decoration-none ms-1" routerLink="/topics">See more topics</a>
 
-                                <button style="background-color: rgb(5, 181, 240) ;" mat-mini-fab>
-                                    <i class="bi bi-facebook"></i>
-                                </button>
-                            </a>
+                    <div class="vstack gap-3">
+                        <mat-card class="p-3">
 
-                            <a target="_blank" href=" https://wa.me/254743125620?text=I'm%20interested%20in%20your%20digital%20marketing">
-                                <button style="background-color: rgb(16, 131, 56) ;" mat-mini-fab>
-                                    <i class="bi bi-whatsapp"></i>
-                                </button>
-                            </a>
-                            <a target="_blank" href="">
-                                <button style="background-color: blue;" mat-mini-fab>
-                                    <i class="bi bi-twitter"></i>
-                                </button>
-                            </a>
-                            <a target="_blank" href="https://www.instagram.com/i.m__digitalmarketing/">
-                                <button style="background-color: rgb(157, 134, 20);" mat-mini-fab>
-                                    <i class="bi bi-instagram"></i>
-                                </button>
-                            </a>
-                            <a target="_blank" href="">
-                                <button mat-mini-fab style="background-color: black;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-tiktok" viewBox="0 0 16 16">
-                                        <path
-                                            d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" />
-                                    </svg>
-                                </button>
-                            </a>
+                            <div class="hstack gap-2 mat-card-title">
+                                <span class="material-symbols-outlined" style="size: 32px;">
+                                    mail
+                                </span>
+                                <span class="h4"> Catch Latest Articles
+                                    in Your Inbox</span>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <div class="my-3 vstack gap-3">
+                                <span>All fields are required</span>
+                                <form [formGroup]="subForm" (ngSubmit)="submit()" class="d-flex flex-column"
+                                    style="gap: 10px;">
+                                    <mat-form-field appearance="outline" color="accent" subscriptSizing="dynamic">
+                                        <mat-label>Name</mat-label>
+                                        <mat-icon matSuffix>name</mat-icon>
+                                        <input autocomplete="name" required matInput formControlName="name"
+                                            placeholder="name" />
+                                    </mat-form-field>
+                                    <mat-error *ngFor="let error of subForm.controls.name.errors?.['backend']">{{error}}
+                                    </mat-error>
 
+                                    <mat-form-field appearance="outline" color="accent" subscriptSizing="dynamic">
+                                        <mat-label>Email</mat-label>
+                                        <mat-icon matSuffix>email</mat-icon>
+                                        <input autocomplete="email" required matInput formControlName="email"
+                                            placeholder="Email" />
+                                    </mat-form-field>
+                                    <mat-error
+                                        *ngFor="let error of subForm.controls.email.errors?.['backend']">{{error}}
+                                    </mat-error>
+                                    <button mat-raised-button color="primary" class="py-3" type="submit"
+                                        [disabled]="subForm.invalid||subForm.disabled">Submit</button>
+                                </form>
+                            </div>
+                            <div></div>
+                        </mat-card>
+                        <div class="my-4">
+                            <span class="h3">Follow Us</span>
+                            <div class="hstack gap-2 mt-1">
+                                <a target="_blank" href="https://www.facebook.com/profile.php?id=100085304978384">
+
+                                    <button style="background-color: rgb(5, 181, 240) ;" mat-mini-fab>
+                                        <i class="bi bi-facebook"></i>
+                                    </button>
+                                </a>
+
+                                <a target="_blank"
+                                    href=" https://wa.me/254743125620?text=I'm%20interested%20in%20your%20digital%20marketing">
+                                    <button style="background-color: rgb(16, 131, 56) ;" mat-mini-fab>
+                                        <i class="bi bi-whatsapp"></i>
+                                    </button>
+                                </a>
+                                <a target="_blank" href="">
+                                    <button style="background-color: blue;" mat-mini-fab>
+                                        <i class="bi bi-twitter"></i>
+                                    </button>
+                                </a>
+                                <a target="_blank" href="https://www.instagram.com/i.m__digitalmarketing/">
+                                    <button style="background-color: rgb(157, 134, 20);" mat-mini-fab>
+                                        <i class="bi bi-instagram"></i>
+                                    </button>
+                                </a>
+                                <a target="_blank" href="">
+                                    <button mat-mini-fab style="background-color: black;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16">
+                                            <path
+                                                d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" />
+                                        </svg>
+                                    </button>
+                                </a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</ng-template>
+<ng-template [ngIf]="(isHandset$|async)">
+<span>
+    
+</span>
+</ng-template>

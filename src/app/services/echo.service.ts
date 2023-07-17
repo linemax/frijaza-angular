@@ -26,38 +26,38 @@ export class EchoService {
       new Echo({
         broadcaster: 'pusher',
         
-        client: new Pusher('pusher_key', {
-          cluster: 'mt1',
-          wsHost: 'ws.freesoulijaza.com',
-          wssHost: 'ws.freesoulijaza.com',
-          enabledTransports: ['ws', 'wss'],
-          wsPort: 80,
-          wssPort: 443,
-          forceTLS: false,
-          logToConsole: true,
-          disableStats: true,
-          channelAuthorization: {
-            endpoint: this.base.base_uri + 'broadcasting/auth',
-            transport: 'ajax',
-            headers: { 'X-XSRF-TOKEN': `${document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))?.split('=')[1]}` }
-          }
-        }),
-        // client: new Pusher('hope_key', {
+        // client: new Pusher('pusher_key', {
         //   cluster: 'mt1',
-        //   wsHost: 'localhost',
-        //   wssHost: 'localhost',
+        //   wsHost: 'ws.freesoulijaza.com',
+        //   wssHost: 'ws.freesoulijaza.com',
         //   enabledTransports: ['ws', 'wss'],
-        //   wsPort: 6001,
-        //   wssPort: 6001,
+        //   wsPort: 80,
+        //   wssPort: 443,
         //   forceTLS: false,
         //   logToConsole: true,
-        //   disableStats: false,
+        //   disableStats: true,
         //   channelAuthorization: {
         //     endpoint: this.base.base_uri + 'broadcasting/auth',
         //     transport: 'ajax',
         //     headers: { 'X-XSRF-TOKEN': `${document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))?.split('=')[1]}` }
         //   }
         // }),
+        client: new Pusher('hope_key', {
+          cluster: 'mt1',
+          wsHost: 'localhost',
+          wssHost: 'localhost',
+          enabledTransports: ['ws', 'wss'],
+          wsPort: 6001,
+          wssPort: 6001,
+          forceTLS: false,
+          logToConsole: true,
+          disableStats: false,
+          channelAuthorization: {
+            endpoint: this.base.base_uri + 'broadcasting/auth',
+            transport: 'ajax',
+            headers: { 'X-XSRF-TOKEN': `${document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))?.split('=')[1]}` }
+          }
+        }),
       })
     )
   }

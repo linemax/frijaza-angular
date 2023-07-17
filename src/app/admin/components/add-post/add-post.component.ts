@@ -43,7 +43,8 @@ export class AddPostComponent implements OnInit, OnDestroy {
     body: new FormControl(''),
     read_time: new FormControl(''),
     author_id: new FormControl(''),
-    category_id: new FormControl(''),
+    categories: new FormControl(''),
+    publish: new FormControl(false),
     editorContent: new FormControl('', Validators.required()
     ),
   })
@@ -74,7 +75,10 @@ export class AddPostComponent implements OnInit, OnDestroy {
 
   submit() {
     this.newPosFormGroup.disable()
-    this.http.post(this.base.base_uri_api + 'posts', this.newPosFormGroup.value, { withCredentials: true, observe: 'response' }).subscribe({
+
+    const postData = { ...this.newPosFormGroup.value };
+    postData.publish = postData.publish ? true : false;
+    this.http.post(this.base.base_uri_api + 'posts', postData, { withCredentials: true, observe: 'response' }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.newPosFormGroup.enable()

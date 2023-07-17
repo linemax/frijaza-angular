@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="vstck gap-4">
-        <span class="display-3">{{service.title}}</span>
+        <span class="display-3">{{service.name}}</span>
         <div class="w-100 d-flex justify-content-center align-items-center"
             style="height: 100px; border: 1px dotted; border-radius: 10px;" *ngIf="!(service.photo)">
             <button (click)="prime_photo.click()" mat-stroked-button>Upload Image</button>
@@ -29,7 +29,7 @@
 
         </div>
         <div class="hstack gap-3 fw-lighter" style="font-size: 10px;">
-        <span>{{service.body}}</span>
+        <span>{{service.description}}</span>
         </div>
     </div>
 </div>
