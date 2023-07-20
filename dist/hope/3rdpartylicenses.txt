@@ -119,6 +119,9 @@ SOFTWARE.
 ngx-infinite-scroll
 MIT
 
+ngx-skeleton-loader
+MIT
+
 orderedmap
 MIT
 Copyright (C) 2016 by Marijn Haverbeke <marijn@haverbeke.berlin> and others
