@@ -1,57 +1,39 @@
-<div class="container-fluid mb-3" *ngIf="serviceResponse?.data">
-    <div class="col-md-10 mx-auto">
-        <div class=" my-4 vstack gap-3">
-            <div class="my-lg-5 my-3">
-                <div class="w-100 text-center">
-
-                    <span class="fs-2">Services we provide
-                    </span>
-                </div>
-
-                <div class="my-4 col-md-10 mx-auto">
-                    <div class="row row-cols-1 row-cols-md-3 g-3 g-lg-4">
-                        <div class="col" *ngFor="let service of serviceResponse?.data">
-                            <div class="card h-100 border-0">
-                                <a routerLink="{{'/services/'}}" *ngIf="service.photo">
-                                    <img style="max-height: 180px;min-height: 180px;object-fit: cover;"
-                                        src="{{this.base.base_uri_api+ 'photos/'+ service.photo.id+ '/serve'}}"
-                                        class="card-img-top" [alt]="service.name"> </a>
-                                <div class="card-body p-2">
-                                    <div class="card-title mt-2">{{service.name|titlecase}}</div>
-                                    <span class="fw-lighter" style="font-size: 10px;">
-                                        {{service.description}}
-                                    </span>
-                                </div>
-                                <div class="card-footer p-0 border-0">
-                                    <button mat-raised-button class="w-100" (click)="serviceDialog(service)">
-                                        <div class="hstack gap-2">
-                                            <span>Read
-                                                More</span>
-                                            <span class="material-symbols-outlined">
-                                                chevron_right
-                                            </span>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
+<mat-toolbar class="sticky-top justify-content-between px-4" color="primary">
+    <img src="../../../../assets//logo.png" style="max-height: 55%;" alt="">
+    <button routerLink="/" mat-raised-button>FreesoulIjaza</button>
+</mat-toolbar>
+<div class="container-fluid mb-3">
+    <div class="row row-cols-1 row-cols-md-2 gy-sm-4">
+        <div class="col">
+            <div class="col-md-10 my-5 mx-auto h-100 ">
+                <div class="vstack justify-content-center align-items-center h-100">
+                    <div>
+                        <div class="display-1 mb-3 fw-bolder">
+                            <span style="color: rgb(105, 105, 169);">COMING </span><span
+                                style="color: rgb(140, 140, 67);">SOON</span>
                         </div>
+                        <div class="fs-3 mb-3"> We are currently working on this page! </div>
+                        <button mat-raised-button color="primary" class="py-4 px-4" (click)="emailDialog()"
+                            style="width: fit-content;">Notify Me</button>
                     </div>
                 </div>
-                <div class="text-center vstack gap-2">
-                    <span class="fs-3"> Get in touch with us today </span>
-                    <button mat-raised-button color="accent" class="py-2 px-4 mx-auto" (click)="emailDialog()"
-                        style="width: fit-content;">Get Started</button>
-
-                </div>
             </div>
+        </div>
+        <div class="col">
+            <div>
+                <img style="object-position: center; object-fit: cover;max-width: 500px" class=" ratio ratio-21x9"
+                    src="../../../../assets/landing/csbg.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 mx-auto">
+        <div class=" my-4 vstack gap-3">
             <mat-divider class="my-4"></mat-divider>
 
             <span class="fs-1 ">Plans
             </span>
             <app-charges class="mb-3"></app-charges>
-            <div class="my-2">
-                <app-footer></app-footer>
-            </div>
         </div>
     </div>
 </div>
+<app-footer></app-footer>

@@ -8,7 +8,7 @@
 @include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
-$primary: mat.define-palette(mat.$orange-palette, 500);
+$primary: mat.define-palette(mat.$blue-palette, 500);
 $accent: mat.define-palette(mat.$green-palette, A700);
 $warn: mat.define-palette(mat.$red-palette);
 
@@ -51,7 +51,7 @@ a {
 
 // Override the background-color of the body element with the default light theme
 body {
-  background-color: #fafafa;
+  background-color: whitesmoke;
   color: rgba(0, 0, 0, 0.87);
 }
 
@@ -69,7 +69,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .w-100 {

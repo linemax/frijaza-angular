@@ -1,26 +1,152 @@
 <div class="container-fluid mb-5">
     <div class="w-100 ps-2 hstack justify-content-between">
-        <button [routerLink]="['../']" mat-icon-button>
+        <button [routerLink]="['/topics']" mat-icon-button>
             <mat-icon>arrow_back</mat-icon>
         </button>
     </div>
-    <div class="col-md-8 mx-auto" *ngIf="post">
-        <div class="vstack gap-4">
-            <span class="display-3 mb-2">{{post.title}}</span>
-            <div class="ratio ratio-21x9">
-                <img class="overflow-hidden" style="object-fit: cover; max-height: 200px;"
-                    src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}" alt="">
+    <div *ngIf="post" class="vstack gap-3">
+        <div class="col-md-8 col-12 mx-auto" *ngIf="!isLoading">
+            <div class="vstack gap-3">
+                <span class="display-4 mb-2 fw-semibold">{{post.title}}</span>
+                <div class="ratio ratio-21x9" style="object-fit: cover; max-height: 200px;">
+                    <img style="object-fit: cover;" src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}"
+                        alt="">
+                </div>
+                <div class="row m-0 row-cols-2 row-cols-md-4">
+                    <div class="hstack gap-1 mt-2 col">
+                        <span style="font-size: 11px;">By: </span>
+                        <span style="font-size: 11px;" class="text-capitalize fw-bold">{{post.author.name}}</span>
+                    </div>
 
+                    <div class="hstack gap-1 col">
+                        <span style="font-size: 11px;">Read Time: </span>
+                        <span style="font-size: 11px;" class="text-capitalize fw-bold">{{post.read_time}}</span>
+                    </div>
+                    <div class="hstack gap-1 col">
+                        <span style="font-size: 11px;">Published at: </span>
+                        <span style="font-size: 11px;" class="fw-bold">{{post.created_at|date:'mediumDate'}}</span>
+                    </div>
+                    <div class="col hstack gap-2 mb-3">
+                        <span style="font-size: 10px; font-weight: lighter;">Topics: </span>
+                        <span *ngFor="let topic of post.categories" style="font-size: 10px;" class="fw-bold">
+                            {{topic.name}}</span>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="lh-lg" [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)"></div>
+
+                </div>
             </div>
-            <div class="hstack gap-3 fw-lighter" style="font-size: 10px;">
-                <span>Author: {{post.author.name}}</span>
-                <span>|</span>
-                <span>Read: {{post.read_time}}</span>
-                <span>|</span>
-                <span *ngFor="let topic of post.categories">Topic: {{topic.name}}</span>
+        </div>
+
+        <div class="col-md-8 col-12 mx-auto" *ngIf="isLoading">
+            <div class="vstack gap-2">
+                <ngx-skeleton-loader count="2" appearance="line" animation="progress-dark"></ngx-skeleton-loader>
+                <div class="ratio ratio-21x9" style="object-fit: cover; max-height: 200px;">
+                    <ngx-skeleton-loader [theme]="{
+                'height': '100%'
+            }" count="1" appearance="line" animation="progress-dark"></ngx-skeleton-loader>
+                </div>
+
+                <div class="row row-cols-4 row-cols-md-4 m-0">
+                    <div class="col">
+                        <ngx-skeleton-loader count="1" appearance="line"
+                            animation="progress-dark"></ngx-skeleton-loader>
+                    </div>
+                    <div class="col">
+                        <ngx-skeleton-loader count="1" appearance="line"
+                            animation="progress-dark"></ngx-skeleton-loader>
+                    </div>
+                    <div class="col">
+                        <ngx-skeleton-loader count="1" appearance="line"
+                            animation="progress-dark"></ngx-skeleton-loader>
+                    </div>
+                    <div class="col">
+                        <ngx-skeleton-loader count="1" appearance="line"
+                            animation="progress-dark"></ngx-skeleton-loader>
+                    </div>
+                </div>
+
+                <ngx-skeleton-loader count="4" appearance="line" animation="progress-dark"></ngx-skeleton-loader>
             </div>
-            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)">
+        </div>
+
+        <div class="col-md-8 col-12 mx-auto mb-5" *ngIf="post.categories">
+            <div>
+                <span class="h2 fw-bold">Related Posts</span>
+                <div *ngFor="let topic of post.categories">
+                    <div *ngFor="let category of category?.data">
+                        <div *ngIf="!isLoading">
+                            <div *ngIf="topic.id ===category.id">
+                                <div class="row row-cols-md-2 row-cols-1 g-3 m-0">
+                                    <div class="col" *ngFor="let postTopic of category.posts">
+                                        <div class="col-md-8" *ngIf="postTopic.id !== post.id">
+                                            <div class="vstack gap-2">
+                                                <a routerLink="{{'/posts/'+postTopic.id}}" style="color: blue;"
+                                                    class="latest-header fw-normal">{{postTopic.title|titlecase}}</a>
+                                                <div class="hstack justify-content-between fw-lighter">
+
+                                                    <span style="font-size: 11px;">{{postTopic.read_time}}</span>
+                                                    <span style="font-size: 11px;">{{postTopic.created_at|date:
+                                                        'mediumDate'}}</span>
+                                                </div>
+                                            </div>
+                                            <mat-divider></mat-divider>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="isLoading">
+
+                <div class="row row-cols-md-2 row-cols-1 g-3 m-0">
+                    <div class="col">
+
+                        <div class="vstack gap-2">
+                            <div>
+                                <ngx-skeleton-loader count="2" appearance="line"
+                                    animation="progress-dark"></ngx-skeleton-loader>
+                            </div>
+                            <div class="hstack justify-content-between">
+                                <div class="col-2 col-md-2">
+
+                                    <ngx-skeleton-loader count="1" appearance="line"
+                                        animation="progress-dark"></ngx-skeleton-loader>
+                                </div>
+                                <div class="col-2 col-md-2">
+
+                                    <ngx-skeleton-loader count="1" appearance="line"
+                                        animation="progress-dark"></ngx-skeleton-loader>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="vstack gap-2">
+                            <div>
+                                <ngx-skeleton-loader count="2" appearance="line"
+                                    animation="progress-dark"></ngx-skeleton-loader>
+                            </div>
+                            <div class="hstack justify-content-between">
+                                <div class="col-2 col-md-2">
+
+                                    <ngx-skeleton-loader count="1" appearance="line"
+                                        animation="progress-dark"></ngx-skeleton-loader>
+                                </div>
+                                <div class="col-2 col-md-2">
+
+                                    <ngx-skeleton-loader count="1" appearance="line"
+                                        animation="progress-dark"></ngx-skeleton-loader>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<app-footer></app-footer>

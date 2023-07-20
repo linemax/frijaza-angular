@@ -40,6 +40,7 @@ import { CdkMenuModule } from '@angular/cdk/menu';
 import { NgxEditorModule } from 'ngx-editor';
 import { CdkScrollable, ScrollingModule } from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 
 
@@ -90,13 +91,15 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MatSelectModule,
     CdkMenuModule,
     NgxEditorModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxSkeletonLoaderModule
   ],
   exports: [
     CommonModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    NgxSkeletonLoaderModule,
     MatDividerModule,
     MatExpansionModule,
     MatSidenavModule,

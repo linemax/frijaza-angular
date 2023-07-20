@@ -10,22 +10,37 @@
                             environs, nature and its natures, science with
                             proven concepts, history unfolding daily and human race evolving.</span>
 
-                        <button mat-raised-button 
-                            style="width: fit-content; border-radius: 20px !important"
+                        <button mat-raised-button style="width: fit-content; border-radius: 20px !important"
                             color="primary">
-                            <span class="mx-3 text-white">Get Started</span>
+                            <span class="mx-3 text-white" routerLink="topics">Learn More</span>
                         </button>
                     </div>
                 </div>
 
             </div>
             <div class="col">
-                <div class="col-md-10 mx-auto">
+                <div class="col-md-10 mx-auto overflow-x-hidden">
                     <img src="../../../../assets/landing/fr.png" alt="">
                 </div>
             </div>
         </div>
-
     </div>
+</ng-template>
+<ng-template [ngIf]="(isHandset$|async)">
+    <div class="container-fluid my-5">
+        <div class="vstack gap-3">
+            <span class="col-11 mx-auto display-1 text-capitalize fw-bolder text-center ">Connecting the World, One
+                story at A
+                Time.</span>
 
+            <span class="col-11 mx-auto text-center" style="font-weight: lighter; font-size: 10px;">Explore diverse
+                perspectives, political
+                environs, nature and its natures, science with
+                proven concepts, history unfolding daily and human race evolving.</span>
+            <button mat-raised-button style="width: fit-content; border-radius: 20px !important" class="mx-auto"
+                color="primary">
+                <span class="mx-3 text-white" routerLink="topics">Learn More</span>
+            </button>
+        </div>
+    </div>
 </ng-template>

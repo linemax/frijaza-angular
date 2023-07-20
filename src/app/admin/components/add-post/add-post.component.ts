@@ -77,7 +77,7 @@ export class AddPostComponent implements OnInit, OnDestroy {
     this.newPosFormGroup.disable()
 
     const postData = { ...this.newPosFormGroup.value };
-    postData.publish = postData.publish ? true : false;
+    postData.publish = postData.publish ? false : true;
     this.http.post(this.base.base_uri_api + 'posts', postData, { withCredentials: true, observe: 'response' }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {

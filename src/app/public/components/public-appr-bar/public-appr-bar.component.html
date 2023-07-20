@@ -10,37 +10,39 @@
         </div>
     </mat-toolbar>
 </div> -->
-<mat-toolbar class="sticky-toolbar" *ngIf="!(isHandset$|async)">
-    <div class="hstack justify-content-between w-100">
+<mat-toolbar style="background-color: whitesmoke;padding-top: 20px; padding-bottom: 20px;" class=""
+    *ngIf="!(isHandset$|async)">
+    <div class="hstack justify-content-between w-100 fw-bold">
         <div class="hstack gap-5">
             <a routerLink="/">
                 <img src="../../../../assets/favicon.png">
             </a>
-            <div class="search-field-container">
-                <mat-icon class="search-icon">search</mat-icon>
-                <input matInput [(ngModel)]="searchQuery" placeholder="Search FreeSoulIjaza" (keydown.enter)="search()">
-                <button mat-stroked-button class="clear-button" *ngIf="searchQuery" (click)="searchQuery=''">
-                    <mat-icon class="clear-icon">close</mat-icon>
-                </button>
-            </div>
         </div>
-        <div class="hstack justify-content-around w-50" *ngIf="topics?.data">
-            <a routerLink="" class="nav-link">Home</a>
+        <div class="hstack justify-content-around w-100 " *ngIf="topics?.data">
+            <a routerLink="/" class="nav-link">Home</a>
             <button mat-button [matMenuTriggerFor]="blogMenu" class="nav-link">
                 <mat-icon>arrow_drop_down</mat-icon>
                 Blog
             </button>
-            <mat-menu #blogMenu="matMenu">
+            <mat-menu #blogMenu="matMenu" class="px-5">
                 <button routerLink="{{'topics/'}}" mat-menu-item>All</button>
                 <button routerLink="{{'authors/'}}" mat-menu-item>Authors</button>
                 <span class="fw-bold">Categories</span>
                 <mat-divider></mat-divider>
-                <button routerLink="{{'topics/'+ topic.id}}" *ngFor="let topic of topics?.data"
-                    mat-menu-item>{{topic.name}}</button>
+                <button routerLink="{{'topics/'+ topic.id}}" *ngFor="let topic of topics?.data" mat-menu-item>
+                    {{topic.name}}
+                    </button>
             </mat-menu>
-            <a routerLink="services" class="nav-link">Services</a>
-            <a routerLink="about" class="nav-link">About</a>
-            <a routerLink="contact" class="nav-link">Contact Us</a>
+            <a routerLink="im_digitals" routerLinkActive="active" class="nav-link">I.M Digitals</a>
+            <a routerLink="about" routerLinkActive="active" class="nav-link">About</a>
+            <div class="search-field-container">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input matInput [(ngModel)]="searchQuery" placeholder="Search ..." (keydown.enter)="search()">
+                <button mat-stroked-button class="clear-button" *ngIf="searchQuery" (click)="searchQuery=''">
+                    <mat-icon class="clear-icon">close</mat-icon>
+                </button>
+            </div>
+            <button mat-raised-button routerLink="contact" class="nav-link">Contact Us</button>
         </div>
     </div>
 </mat-toolbar>
@@ -61,7 +63,7 @@
         <mat-sidenav #drawer class="sidenav" fixedInViewport
             [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
             [opened]="(isHandset$ | async) === false">
-            <mat-toolbar class="sticky-toolbar">
+            <mat-toolbar style="background-color: whitesmoke;" class="sticky-toolbar">
                 <a routerLink="/">
                     <img src="../../../../assets/favicon.png">
                 </a>
@@ -77,23 +79,15 @@
                         <span>Home</span>
                     </div>
                 </a>
-                <a mat-list-item routerLink="/" (click)="drawer.close()">
+                <a mat-list-item routerLink="/topics" (click)="drawer.close()">
                     <div class="hstack gap-3 align-items-center">
                         <span class="material-symbols-outlined">
                             auto_stories
                         </span>
-                        <span>Articles</span>
+                        <span>Blog</span>
                     </div>
                 </a>
-                <a mat-list-item routerLink="services" (click)="drawer.close()">
 
-                    <div class="hstack gap-3 align-items-center">
-                        <span class="material-symbols-outlined">
-                            folder_supervised
-                        </span>
-                        <span> Services</span>
-                    </div>
-                </a>
                 <a mat-list-item routerLink="authors" (click)="drawer.close()">
                     <div class="hstack gap-3 align-items-center">
                         <mat-icon>persons</mat-icon>

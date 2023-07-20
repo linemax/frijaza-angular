@@ -17,7 +17,7 @@ export class PublicApprBarComponent {
 
   topics: TopicsResponse | undefined | null
 
-  constructor(private dialog: MatDialog, private breakpointObserver: BreakpointObserver, private http: HttpClient, public base: BaseService, private activateRoute: ActivatedRoute,) {
+  constructor(private route: ActivatedRoute, private breakpointObserver: BreakpointObserver, private http: HttpClient, public base: BaseService, private activateRoute: ActivatedRoute,) {
     this.getTopics(this.base.base_uri_api + 'categories')
   }
 

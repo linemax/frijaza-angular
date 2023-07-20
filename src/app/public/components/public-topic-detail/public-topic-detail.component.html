@@ -10,20 +10,30 @@
             </div>
             <span class="display-5">{{topic.name|titlecase}}</span>
             <mat-divider></mat-divider>
-            <span>Related Posts</span>
-            <div class="row row-cols-1 row-cols-md-4 m-0 g-3" *ngIf="topic.posts">
-                <div class="col" *ngFor="let post of topic.posts">
-                    <div class="card h-100">
-                        <a routerLink="{{'/posts/'+post.id}}" *ngIf="post.photo">
-                            <img style="max-height: 180px;min-height: 180px;object-fit: cover;"
-                                src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}"
-                                class="card-img-top" [alt]="post.title"> </a>
-                        <div class="card-title mt-2">{{post.title}}</div>
-                        <div class="card-body">
-                            <div class="hstack gap-2 fw-lighter" style="font-size: 10px;">
-                                <span>Author: {{post.author.name}}</span>
-                                <span style="font-size: 10px;" class="fw-lighter">|</span>
-                                <span>Read: {{post.read_time}}</span>
+            <div class="row row-cols-1 row-cols-md-2 m-0">
+                <div class="col my-5" *ngFor="let post of topic.posts |slice: 0:4">
+                    <div class="row m-0">
+                        <div class="col-md-6"
+                            style=" border-radius: 25px;">
+                                <img *ngIf="!(isHandset$|async)" style="max-width: 200px;min-height: 100px;max-height: 100px;object-fit: cover;" src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}"
+                                    class=" ratio ratio-21x9" [alt]="post.title">
+                                <img *ngIf="(isHandset$|async)" style="width: 100%;min-height: 100px;max-height: 100px;object-fit: cover;" src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}"
+                                    class=" ratio ratio-21x9" [alt]="post.title">
+                        </div>
+                        <div class="col-md-6" style="max-height: 100px;min-height: 100px;">
+                            <div>
+                                <a href="{{'/posts/'+post.id}}" class="latest-header text-dark">{{post.title.slice(0,100)}}</a>
+                            </div>
+                            <div class="vstack  justify-content-between h-100 " style="font-size: 10px;">
+                                <span class="fw-lighter">
+                                    {{post.introduction.slice(0,100)+'...'}}
+                                </span>
+                                <div class="hstack justify-content-between mt-2">
+                                    <span class="text-capitalize">{{post.author.name}}</span>
+                                    <span>{{post.created_at|date:'mediumDate'}}</span>
+                                </div>
+                            <mat-divider *ngIf="isHandset$|async"></mat-divider>
+                            <mat-divider *ngIf="!(isHandset$|async)"></mat-divider>
                             </div>
                         </div>
                     </div>

@@ -36,6 +36,7 @@ export class BlogArticlesComponent {
 
   isLoading: boolean = true
   hidePageSize = false;
+  error: string | undefined
 
   refresh() {
     this.isLoading = false
@@ -49,17 +50,10 @@ export class BlogArticlesComponent {
       });
     this.getTopics(this.base.base_uri_api + 'categories')
     this.getPosts(this.base.base_uri_api + 'posts')
-    this.getLatestPost()
-    console.log(this.post);
-    
+
 
   }
 
-  onscroll() {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !this.isLoading) {
-      this.getPosts(this.base.base_uri_api + 'posts')
-    }
-  }
 
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -77,34 +71,35 @@ export class BlogArticlesComponent {
 
 
   getTopics(url: string, pageEevent?: PageEvent) {
-    this.http.get(url, { observe: 'response', params: new HttpParams().append('with', 'posts') }).subscribe({
+    this.isLoading = true
+    this.http.get(url, { observe: 'response', params: new HttpParams().append('with', 'posts, posts.author, posts.photo') }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.topics = response.body
         }
-      },
+        this.isLoading = false
+      }, error: (errorResponse: HttpErrorResponse) => {
+        this.error = errorResponse.message
+
+        this.isLoading = true
+      }
     })
 
   }
 
   getPosts(url: string, pageEevent?: PageEvent) {
+    this.isLoading = true
     this.http.get(url, { observe: 'response', params: new HttpParams().append('with', 'categories, author,author.photo, photo') }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.posts = response.body
         }
-      },
-    })
+        this.isLoading = false
+      }, error: (errorResponse: HttpErrorResponse) => {
+        this.error = errorResponse.message
 
-  }
-
-  getLatestPost() {
-    this.http.get(this.base.base_uri_api + `posts/latest/${this.posts?.data[0]?.id}`, { observe: 'response', params: new HttpParams().append('with', 'categories, author,author.photo, photo') }).subscribe({
-      next: (response: HttpResponse<any>) => {
-        if (response.ok) {
-          this.posts = response.body
-        }
-      },
+        this.isLoading = true
+      }
     })
 
   }

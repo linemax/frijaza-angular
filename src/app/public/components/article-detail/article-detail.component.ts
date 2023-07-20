@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { HttpClient, HttpParams, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Component, Pipe, PipeTransform } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, map, shareReplay } from 'rxjs';
 import { AuthorsResponse } from 'src/app/Interfaces/author';
 import { Post } from 'src/app/Interfaces/post';
 import { TopicsResponse } from 'src/app/Interfaces/topic';
@@ -21,6 +22,7 @@ export class ArticleDetailComponent {
   author: AuthorsResponse | undefined
   category: TopicsResponse | undefined
   error: string | undefined
+  isLoading: boolean = false;
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -34,11 +36,27 @@ export class ArticleDetailComponent {
   ) {
     this.activateRoute.data.subscribe(
       ({ post }) => {
-        this.post = post
+        if (post) {
+          this.post = post
+          this.isLoading = false
+
+        } else {
+
+          this.isLoading = true
+        }
+        this.isLoading = false
       });
     this.getAuthor(this.base.base_uri_api + 'authors')
     this.getcategory(this.base.base_uri_api + 'categories')
   }
+
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
 
   getAuthor(url: string, pageEvent?: PageEvent) {
     this.http.get(url, { observe: 'response', withCredentials: true, params: new HttpParams().append('with', 'posts, user, photo') }).subscribe({
@@ -55,13 +73,16 @@ export class ArticleDetailComponent {
 
 
   getcategory(url: string, pageEvent?: PageEvent) {
+    this.isLoading = true
     this.http.get(url, { observe: 'response', withCredentials: true, params: new HttpParams().append('with', 'posts') }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.category = response.body
         }
+        this.isLoading = false
       }, error: (errorResponse: HttpErrorResponse) => {
         this.error = errorResponse.message
+        this.isLoading = true
       }
     })
   }

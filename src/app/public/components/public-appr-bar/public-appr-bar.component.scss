@@ -1,7 +1,7 @@
 .search-field-container {
     display: flex;
     align-items: center;
-    background-color: #cdcfd4;
+    background-color: rgb(255, 255, 255);
     border-radius: 25px;
     padding: 6px;
   }
@@ -39,12 +39,6 @@
     display: block;
   }
 
-  .sticky-toolbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-
   .sidenav  {
     width: 100%;
     background-image: url('../../../../assets/sidenav/side1.jpg');
@@ -53,3 +47,9 @@
     z-index: 1000;
   }
 
+  .nav-link.active {
+    text-decoration: underline;
+    color: inherit;
+    background-color: initial !important;
+  }
+  

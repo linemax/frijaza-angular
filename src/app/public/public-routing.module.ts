@@ -42,12 +42,12 @@ const routes: Routes = [
           { path: ':id', component: AuthorDetailComponent, resolve: { author: authorResolver } },
         ]
       },
-      { path: 'services', component: PublicServiceComponent },
       { path: 'about', component: AboutComponent },
       { path: 'contact', component: ContactComponent },
 
     ]
-  }
+  },
+  { path: 'im_digitals', component: PublicServiceComponent },
 ];
 
 @NgModule({

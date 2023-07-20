@@ -7,3 +7,11 @@
     /* Apply elevated box-shadow on hover */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
+
+a.latest-header {
+    text-decoration: none;
+  }
+  
+  a.latest-header:hover {
+    text-decoration: underline;
+  }
