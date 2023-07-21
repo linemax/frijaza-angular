@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="col-md-9 mx-auto my-5">
+    <div class="col-md-9 col-10 mx-auto my-5">
         <div class="vstack gap-3">
             <div class="row m-0 g-3">
                 <div class="col-md-6" *ngIf="latest">
@@ -43,7 +43,7 @@
                         <span class="fw-bold">Featured Posts</span>
                         <mat-divider style="background-color: orangered;" class="pt-1"></mat-divider>
 
-                        <div class="vstack gap-2 my-3" *ngFor="let post of posts.data | slice:0:5">
+                        <div class="vstack gap-2 my-3" *ngFor="let post of posts.data | slice:1:5">
                             <div class="vstack gap-2">
                                 <a routerLink="{{'/posts/'+post.id}}" style="color: black;"
                                     class="latest-header">{{post.title|titlecase}}</a>

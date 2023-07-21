@@ -244,7 +244,7 @@
     </div>
 </ng-template>
 <ng-template [ngIf]="(isHandset$|async)">
-    <div class="container-fluid">
+    <div class="container-fluid col-10">
         <div class="hstack gap-2 w-100 pt-5 mb-3">
             <span class="h3 text-nowrap">Latest Articles</span>
             <div class="w-100">
@@ -252,21 +252,29 @@
             </div>
         </div>
         <div class="vstack gap-3">
-            <div class="card mobile-card h-100 p-2" routerLink="{{'/posts/'+post.id}}"
-                style="min-height: 200px; max-height: 200px"
-                [style.background-image]="'url(' + this.base.base_uri_api + 'photos/' + post.photo?.id + '/serve)'"
-                *ngFor="let post of posts?.data | slice:0:1">
-                <div class="vstack h-100 gap-2  text-white justify-content-between">
-                    <mat-chip style="width: fit-content;"
-                        *ngFor="let topic of post.categories|slice:0:1">{{topic.name}}</mat-chip>
-                    <div>
-                        <a class="latest-header" routerLink="{{'/posts/'+post.id}}" *ngIf="post.photo">
-                            {{post.title}}
-                        </a>
-                        <div class="hstack gap-1 mt-2" style="font-size: 10px;font-weight: lighter;">
-                            <span>{{post.author?.name|titlecase}}</span>
-                            <span class="fs-5">|</span>
-                            <span>{{post.read_time}}</span>
+            <div class="card border-0 shadow-sm" *ngFor="let post of posts?.data | slice:0:1">
+                <img style="max-height: 250px;object-fit: cover;"
+                    src="{{this.base.base_uri_api+ 'photos/'+ post?.photo?.id+ '/serve'}}"
+                    class="card-img-top" alt="...">
+                <div class="card-body vstack gap-2 mt-3">
+                    <a routerLink="{{'/posts/'+post.id}}"
+                        class="card-title h3 latest-header">{{post.title}}</a>
+                    <p class="card-text" style="font-size: 12px;">
+                        {{post.introduction.slice(0, 100)+ '...'}}
+                    </p>
+                    <div class="hstack justify-content-between text-capitalize" style="font-size: 10px;">
+                        <div class="hstack gap-1">
+                            <span class="material-symbols-outlined">
+                                person
+                            </span>
+                            <span>{{post.author?.name}}</span>
+                        </div>
+                        <div class="hstack gap-1">
+                            <span class="material-symbols-outlined">
+                                schedule
+                            </span>
+
+                            <span>{{post.created_at|date: 'mediumDate'}}</span>
                         </div>
                     </div>
                 </div>
@@ -284,7 +292,7 @@
                             <span style="font-size: 11px;">{{post.created_at|date: 'mediumDate'}}</span>
                         </div>
                     </div>
-                    <mat-divider></mat-divider>
+                    <mat-divider style="background-color: black;"></mat-divider>
                 </div>
             </div>
         </div>

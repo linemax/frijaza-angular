@@ -5,7 +5,7 @@
         </button>
     </div>
     <div *ngIf="post" class="vstack gap-3">
-        <div class="col-md-8 col-12 mx-auto" *ngIf="!isLoading">
+        <div class="col-md-8 col-10 mx-auto" *ngIf="!isLoading">
             <div class="vstack gap-3">
                 <span class="display-4 mb-2 fw-semibold">{{post.title}}</span>
                 <div class="ratio ratio-21x9" style="object-fit: cover; max-height: 200px;">
@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="col-md-8 col-12 mx-auto mb-5" *ngIf="post.categories">
+        <div class="col-md-8 col-10 mx-auto mb-5" *ngIf="post.categories">
             <div>
                 <span class="h2 fw-bold">Related Posts</span>
                 <div *ngFor="let topic of post.categories">
