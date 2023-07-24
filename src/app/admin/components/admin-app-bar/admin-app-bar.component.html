@@ -29,46 +29,36 @@
 <div>
     <ng-template [ngIf]="auth.loggedInUserModel.hasValue()">
         <nav color="accent" [fitInkBarToContent]="false" *ngIf="!(isHandset$|async)" mat-tab-nav-bar
-            [mat-stretch-tabs]="false" mat-align-tabs="center" [tabPanel]="tabPanel">
+            [mat-stretch-tabs]="true" mat-align-tabs="center" [tabPanel]="tabPanel">
             <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'admin'" routerLink="/admin">
-                <div class="hstack gap-3 align-items-center">
-                    <mat-icon>home</mat-icon>
-                    <span>Dashboard</span>
-                </div>
+
+                <span>Dashboard</span>
+
             </a>
             <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'articles'" routerLink="articles">
-                <div class="hstack gap-3 align-items-center">
-                    <span class="material-symbols-outlined">
-                        auto_stories
-                    </span>
-                    <span>Articles</span>
-                </div>
+
+                <span>Articles</span>
+
             </a>
             <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'services'" routerLink="services">
-                <div class="hstack gap-3 align-items-center">
-                    <span class="material-symbols-outlined">
-                        folder_supervised
-                    </span>
-                    <span> Services</span>
-                </div>
+
+                <span> Services</span>
+
             </a>
             <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'authors'" routerLink="authors">
-                <div class="hstack gap-3 align-items-center">
-                    <mat-icon>groups</mat-icon>
-                    Authors
-                </div>
+
+                Authors
+
             </a>
             <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'settings'" routerLink="settings">
-                <div class="hstack gap-3 align-items-center">
-                    <mat-icon>admin_panel_settings</mat-icon>
-                    Settings
-                </div>
+
+                Settings
+
             </a>
             <a mat-tab-link [active]="outlet.activatedRouteData['active'] === 'account'" routerLink="account">
-                <div class="hstack gap-3 align-items-center">
-                    <mat-icon>account_circle</mat-icon>
-                    account
-                </div>
+
+                account
+
             </a>
         </nav>
         <mat-divider></mat-divider>
@@ -97,7 +87,7 @@
                         </button>
                     </mat-toolbar>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="users">
+                        <a mat-list-item routerLink="/admin">
 
                             <div class="hstack gap-3 align-items-center">
                                 <mat-icon>dashboard</mat-icon>
@@ -121,7 +111,7 @@
                                 <span> Services</span>
                             </div>
                         </a>
-                        <a mat-list-item routerLink="users">
+                        <a mat-list-item routerLink="authors">
                             <div class="hstack gap-3 align-items-center">
                                 <mat-icon>groups</mat-icon>
                                 Authors

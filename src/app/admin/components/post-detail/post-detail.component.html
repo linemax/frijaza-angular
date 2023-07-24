@@ -1,4 +1,4 @@
-<div class="col-md-10 mx-auto" *ngIf="post">
+<div class="col-md-10 mx-auto mb-3" *ngIf="post">
     <div class="w-100 hstack justify-content-between">
         <button [routerLink]="['../']" mat-icon-button>
             <mat-icon>arrow_back</mat-icon>
@@ -7,47 +7,117 @@
             <button mat-raised-button (click)="prime_photo.click()" *ngIf="post.photo">
                 <span>Update Photo</span>
             </button>
-            <button mat-raised-button (click)="update(post)" *ngIf="post.photo">
-                <span>Update Post</span>
-            </button>
             <input type="file" accept="image/*" name="image" [ngModel]="post.photo" #prime_photo
                 (change)="uploadImage($event)" hidden>
 
-            <div class="progress">
-
-                <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress"
-                    *ngIf="uploadProgress">
-
-                </mat-progress-bar>
-
-                <mat-icon class="cancel-upload" (click)="cancelUpload()"
-                    *ngIf="uploadProgress">delete_forever</mat-icon>
-
-            </div>
 
         </div>
     </div>
-    <div class="vstck gap-4">
-        <span class="display-3">{{post.title}}</span>
-        <div class="w-100 d-flex justify-content-center align-items-center"
-            style="height: 100px; border: 1px dotted; border-radius: 10px;" *ngIf="!(post.photo)">
-            <button (click)="prime_photo.click()" mat-stroked-button>Upload Image</button>
+    <div class="col-md-11 col-11 mx-auto">
 
-            <input type="file" accept="image/*" name="image" #prime_photo (change)="uploadImage($event)" hidden>
-        </div>
-        <div class="ratio ratio-21x9">
-            <img class="" style="object-fit: cover; max-height: 200px;"
-                src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}" alt="">
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        View Details
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="col-md-10 col-10 mx-auto">
+                    <div class="vstck gap-4">
+                        <span class="display-3">{{post.title}}</span>
+                        <div class="w-100 d-flex justify-content-center align-items-center"
+                            style="height: 100px; border: 1px dotted; border-radius: 10px;" *ngIf="!(post.photo)">
+                            <button (click)="prime_photo.click()" mat-stroked-button>Upload Image</button>
+                            
+                            <mat-progress-bar *ngIf="uploadProgress > 0 && uploadProgress < 100" mode="determinate"
+                                [value]="uploadProgress"></mat-progress-bar>
 
-        </div>
-        <div class="hstack gap-3 fw-lighter" style="font-size: 10px;">
-            <span>Author: {{post.author.name}}</span>
-            <span>|</span>
-            <span>Read: {{post.read_time}}</span>
-            <span>|</span>
-            <span *ngFor="let topic of post.categories">Topic: {{topic.name}}</span>
-        </div>
-        <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)">
-        </div>
+                            <!-- Add an element to show a success message after a successful upload -->
+                            <div *ngIf="uploadComplete">
+                                Upload complete!
+                            </div>
+
+                            <input type="file" accept="image/*" name="image" #prime_photo (change)="uploadImage($event)"
+                                hidden>
+                        </div>
+                        <div class="ratio ratio-21x9">
+                            <img class="" style="object-fit: cover; max-height: 200px;"
+                                src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}" alt="">
+
+                        </div>
+                        <div class="hstack gap-3 fw-lighter" style="font-size: 10px;">
+                            <span>Author: {{post.author.name}}</span>
+                            <span>|</span>
+                            <span>Read: {{post.read_time}}</span>
+                            <span>|</span>
+                            <span *ngFor="let topic of post.categories">Topic: {{topic.name}}</span>
+                        </div>
+                        <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)">
+                        </div>
+                    </div>
+
+                </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Edit Details
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="vstack gap-2">
+                    <mat-divider></mat-divider>
+                    <form (ngSubmit)="submit()" class="p-3 vstack gap-3" [formGroup]="editPostFormGroup">
+                        <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                            <mat-label>Title</mat-label>
+                            <input formControlName="title" type="text" matInput>
+                            <mat-error
+                                *ngFor="let error of editPostFormGroup.controls.title.errors?.['backend']">{{error}}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                            <mat-label>Author</mat-label>
+                            <mat-select formControlName="author_id" [multiple]="false">
+                                <mat-option *ngFor="let author of author?.data"
+                                    [value]="author.id">{{author.name}}</mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                        <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                            <mat-label>Categories</mat-label>
+                            <mat-select formControlName="categories" multiple>
+                                <mat-option *ngFor="let topic of categories?.data"
+                                    [value]="topic.id">{{topic.name}}</mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                        <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                            <mat-label>Introduction</mat-label>
+                            <input formControlName="introduction" type="text" matInput>
+                            <mat-error
+                                *ngFor="let error of editPostFormGroup.controls.introduction.errors?.['backend']">{{error}}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field [subscriptSizing]="'dynamic'" color="accent">
+                            <mat-label>Read time</mat-label>
+                            <input formControlName="read_time" type="text" matInput>
+                            <mat-error
+                                *ngFor="let error of editPostFormGroup.controls.read_time.errors?.['backend']">{{error}}
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- <mat-slide-toggle formControlName="publish">Publish</mat-slide-toggle> -->
+                        <div class="editor" *ngIf="editor">
+                            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                            </ngx-editor-menu>
+                            <ngx-editor [editor]="editor" formControlName="body">
+                            </ngx-editor>
+                        </div>
+                        <button style="width: fit-content;" type="submit" color="accent"
+                            mat-stroked-button>Submit</button>
+                    </form>
+
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
 </div>

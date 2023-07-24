@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -20,6 +21,8 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "chart.js": "^4.3.0",
+    "ng2-charts": "^4.1.1",
     "ngx-editor": "^15.3.0",
     "ngx-infinite-scroll": "^16.0.0",
     "ngx-skeleton-loader": "^8.0.0",

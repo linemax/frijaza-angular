@@ -1,6 +1,7 @@
 import { Component, Injectable, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Editor, Toolbar, Validators } from 'ngx-editor';
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { Editor, Toolbar, Validators } from 'ngx-editor';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'hope';
   editor: Editor | undefined | null
+  
 
  
   toolbar: Toolbar = [

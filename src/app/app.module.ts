@@ -15,6 +15,7 @@ import { LoadingService } from './services/loading.service';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { HomeIndexComponent } from './components/home-index/home-index.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdminModule,
     SharedModule,
     PublicModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgChartsModule
   ],
   providers: [
 

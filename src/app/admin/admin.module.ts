@@ -28,6 +28,8 @@ import { ServiceOutletComponent } from './components/service-outlet/service-outl
 import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptors/auth.interceptor';
+import { Chart } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    SharedModule
+    SharedModule,
+    NgChartsModule
+    
   ],
   providers: [
 

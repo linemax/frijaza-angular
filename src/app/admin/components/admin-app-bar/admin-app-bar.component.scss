@@ -1,0 +1,15 @@
+nav.mat-tab-nav-bar a.mat-tab-link.active {
+    border-bottom: 2px solid blue !important; /* Change the color and thickness as per your preference */
+  }
+ .mdc-tab .mat-mdc-tab-link .mat-mdc-focus-indicator {
+
+    border-bottom: 2px solid blue !important;
+ }
+
+
+ .mat-tab-link.active {
+    text-decoration: underline;
+    color: inherit;
+    background-color: initial !important;
+  }
+  

@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Editor, Toolbar, Validators } from 'ngx-editor';
 import { Observable, Subscription, map, shareReplay } from 'rxjs';
-import { User } from 'src/app/Interfaces/User';
+import { User, UsersResponse } from 'src/app/Interfaces/User';
 import { Author } from 'src/app/Interfaces/author';
 import { Post, PostsResponse } from 'src/app/Interfaces/post';
 import { BaseService } from 'src/app/services/base.service';
@@ -51,6 +51,7 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
 
   User: User | null | undefined
   author: Author | null | undefined
+  user: UsersResponse | null | undefined
   posts: PostsResponse | null | undefined
 
   error: string | undefined;
@@ -72,10 +73,11 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
           this.authFormGroup.controls.email.setValue(this.author.email)
           this.authFormGroup.controls.phone.setValue(this.author.phone)
           this.authFormGroup.controls.bio.setValue(this.author.bio)
-          this.authFormGroup.controls.user.setValue(this.author.user?.name)
+          this.authFormGroup.controls.user.setValue(this.author.user?.id)
         }
       });
     this.getPosts(this.base.base_uri_api + 'posts')
+    this.getUser(this.base.base_uri_api + 'users')
   }
 
 
@@ -88,6 +90,18 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
 
   getPosts(url: string, pageEvent?: PageEvent) {
     this.http.get(url, { observe: 'response', withCredentials: true,  params: new HttpParams().append('with', 'posts,user, photo') }).subscribe({
+      next: (response: HttpResponse<any>) => {
+        if (response.ok) {
+          this.posts = response.body
+        }
+      }, error: (errorResponse: HttpErrorResponse) => {
+        this.error = errorResponse.message
+      }
+    })
+  }
+
+  getUser(url: string, pageEvent?: PageEvent) {
+    this.http.get(url, { observe: 'response', withCredentials: true,  params: new HttpParams().append('with', 'author,author.posts, author.photo') }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.posts = response.body

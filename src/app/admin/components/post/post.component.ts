@@ -1,10 +1,11 @@
-import { HttpClient, HttpResponse, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostsResponse, Post } from 'src/app/Interfaces/post';
 import { BaseService } from 'src/app/services/base.service';
 import { PageEvent } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -25,14 +26,17 @@ export class PostComponent {
   }
   posts: PostsResponse | undefined | null
   error: string | undefined | null
+  uploadProgress: number | undefined | null;
+  uploadSub: Subscription | undefined | null;
 
-  constructor(private dialog: MatDialog, private base: BaseService, private snackBar: MatSnackBar, private http: HttpClient) {
+  constructor(private dialog: MatDialog, private base: BaseService, private snackBar: MatSnackBar, private http: HttpClient,
+    private snack: MatSnackBar) {
     this.getPosts(this.base.base_uri_api + 'posts')
 
   }
 
-  delete(_t67: Post) {
 
+  delete(_t67: Post) {
     this.snackBar.open(`Confirm ${_t67.title} Post Deletion`, 'CONFIRM', { duration: 7000 }).onAction().subscribe(() => {
       this.http.delete(this.base.base_uri_api + `posts/${_t67.id}`, { observe: 'response', withCredentials: true }).subscribe({
         next: (response: HttpResponse<any>) => {
