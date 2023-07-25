@@ -46,39 +46,42 @@ export class PostDetailComponent implements OnInit, OnDestroy {
 
 
   submit() {
-    this.editPostFormGroup.disable()
+    if (this.post) {
 
-    const postData = { ...this.editPostFormGroup.value };
-    postData.publish = postData.publish ? false : true;
-    this.http.post(this.base.base_uri_api + 'posts', postData, { withCredentials: true, observe: 'response' }).subscribe({
-      next: (response: HttpResponse<any>) => {
-        if (response.ok) {
+      this.editPostFormGroup.disable()
+
+      const postData = { ...this.editPostFormGroup.value };
+      postData.publish = postData.publish ? false : true;
+      this.http.post(this.base.base_uri_api + `posts/${this.post.id}`, postData, { withCredentials: true, observe: 'response' }).subscribe({
+        next: (response: HttpResponse<any>) => {
+          if (response.ok) {
+            this.editPostFormGroup.enable()
+            this.snack.open(`Post ${this.editPostFormGroup.controls.title.value} succefully edited!`, '', { duration: 3000 })
+          }
+        }, error: (errorResponse: HttpErrorResponse) => {
           this.editPostFormGroup.enable()
-          this.snack.open(`Post ${this.editPostFormGroup.controls.title.value} succefully edited!`, '', { duration: 3000 })
+          switch (errorResponse.status) {
+            case 422:
+              if (errorResponse.error['errors']) {
+                if (errorResponse.error['errors'].title) {
+                  this.editPostFormGroup.controls.title.setErrors({ backend: errorResponse.error['errors'].title })
+                }
+                if (errorResponse.error['errors'].introduction) {
+                  this.editPostFormGroup.controls.introduction.setErrors({ backend: errorResponse.error['errors'].introduction })
+                }
+                if (errorResponse.error['errors'].read_time) {
+                  this.editPostFormGroup.controls.read_time.setErrors({ backend: errorResponse.error['errors'].read_time })
+                }
+                if (errorResponse.error['errors'].body) {
+                  this.editPostFormGroup.controls.body.setErrors({ backend: errorResponse.error['errors'].body })
+                }
+              }
+          }
+        }, complete: () => {
+          this.editPostFormGroup.enable()
         }
-      }, error: (errorResponse: HttpErrorResponse) => {
-        this.editPostFormGroup.enable()
-        switch (errorResponse.status) {
-          case 422:
-            if (errorResponse.error['errors']) {
-              if (errorResponse.error['errors'].title) {
-                this.editPostFormGroup.controls.title.setErrors({ backend: errorResponse.error['errors'].title })
-              }
-              if (errorResponse.error['errors'].introduction) {
-                this.editPostFormGroup.controls.introduction.setErrors({ backend: errorResponse.error['errors'].introduction })
-              }
-              if (errorResponse.error['errors'].read_time) {
-                this.editPostFormGroup.controls.read_time.setErrors({ backend: errorResponse.error['errors'].read_time })
-              }
-              if (errorResponse.error['errors'].body) {
-                this.editPostFormGroup.controls.body.setErrors({ backend: errorResponse.error['errors'].body })
-              }
-            }
-        }
-      }, complete: () => {
-        this.editPostFormGroup.enable()
-      }
-    })
+      })
+    }
   }
 
   update(arg0: Post) {
@@ -198,7 +201,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   // }
 
   uploadComplete: boolean = false
-  uploadProgress= 0
+  uploadProgress = 0
 
   uploadImage(event: any) {
     if (event.target.files[0]) {
