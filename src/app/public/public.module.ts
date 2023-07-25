@@ -26,6 +26,7 @@ import { AuthorOutletComponent } from './components/author-outlet/author-outlet.
 import { EmailComponent } from './components/email/email.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ContactComponent } from './components/contact/contact.component';
     AuthorOutletComponent,
     EmailComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    PrivacyComponent
   ],
   imports: [
     CommonModule,

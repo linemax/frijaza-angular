@@ -1,87 +1,62 @@
 <div class="container-fluid  col-md-10 mx-auto">
-    <div class="row m-0 mt-5" *ngIf="author">
-        <div class="col-md-8 mx-auto">
-            <div class="vstack gap-3 my-3">
-                <span class="h3">Author's Details</span>
-                <div class="col-md-10">
-
+    <div class="col-md-10 mx-auto" *ngIf="author">
+        <div class="vstack g-3">
+            <span class="h3">Author's Details</span>
+            <div class="row  m-0">
+                <div class="col-md-4">
+                    <div class="vstack gap-2">
+                        <img class="ratio ratio-4x3 rounded-circle "
+                            style="object-fit: fill;max-height: 120px; max-width: 100px"
+                            src="{{this.base.base_uri_api+ 'photos/'+ author.photo.id+ '/serve'}}" alt="">
+                        <div class="vstack gap-2 justify-content-center align-items-center">
+                            <div class="hstack gap-2 text-center">
+                                <span>Name:</span>
+                                <span class="fw-bold">{{author.name}}</span>
+                            </div>
+                            <div class="hstack gap-2 text-center">
+                                <span>Email:</span>
+                                <span class="fw-bold">{{author.email}}</span>
+                            </div>
+                            <div class="hstack gap-2 text-center">
+                                <span>Phone:</span>
+                                <span class="fw-bold">{{author.phone}}</span>
+                            </div>
+                            <div class="hstack gap-2 text-center">
+                                <span>Posts:</span>
+                                <span class="fw-bold">{{author.posts.length}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
                     <div class="vstack gap-2">
                         <span>Bio:</span>
                         <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(author.bio)">
                         </div>
                     </div>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="vstack my-3" *ngIf="author.posts">
-                <span class="h3">Posts</span>
-                <div class="col-md-10 mx-auto">
-                    <div class="row row-cols-1 row-cols-md-3 m-0">
-                        <div class="col" *ngFor="let post of author.posts">
-                            <div class="card">
-                                <a href="{{'/posts/'+post.id}}" *ngIf="post.photo">
-                                    <img style="max-height: 180px;min-height: 180px;object-fit: cover;"
-                                        src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}"
-                                        class="card-img-top" [alt]="post.title"> </a>
-                                <div class="card-body">
-                                    <span class="card-title">{{post.title}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+                </div>
             </div>
         </div>
-        <div class="col-md-4 mx-auto">
-            <div class="vstack gap-2">
-
-                <img class="ratio ratio-4x3 rounded-circle "
-                    style="object-fit: fill;max-height: 120px; max-width: 100px"
-                    src="{{this.base.base_uri_api+ 'photos/'+ author.photo.id+ '/serve'}}" alt="">
-                <div class="vstack gap-2 justify-content-center align-items-center">
-                    <div class="hstack gap-2 text-center">
-                        <span>Name:</span>
-                        <span class="fw-bold">{{author.name}}</span>
-                    </div>
-                    <div class="hstack gap-2 text-center">
-                        <span>Email:</span>
-                        <span class="fw-bold">{{author.email}}</span>
-                    </div>
-                    <div class="hstack gap-2 text-center">
-                        <span>Phone:</span>
-                        <span class="fw-bold">{{author.phone}}</span>
-                    </div>
-                    <div class="hstack gap-2 text-center">
-                        <span>Posts:</span>
-                        <span class="fw-bold">{{author.posts.length}}</span>
-                    </div>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="vstack gap-3 mt-4" *ngIf="author.posts">
-                <span class="h3">Recent Posts</span>
-                <div class=" vstack gap-3">
-                    <div class="card" style="max-width: 75%;" *ngFor="let post of author.posts">
+        <mat-divider></mat-divider>
+        <div class=""></div>
+        <div class="vstack my-3" *ngIf="author.posts">
+            <span class="h3">Posts</span>
+            <div class="row row-cols-1 row-cols-md-4 m-0 g-3">
+                <div class="col" *ngFor="let post of author.posts">
+                    <div class="card h-100">
+                        <a href="{{'/posts/'+post.id}}" *ngIf="post.photo">
+                            <img style="max-height: 180px;min-height: 180px;object-fit: cover;"
+                                src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}"
+                                class="card-img-top" [alt]="post.title"> </a>
                         <div class="card-body">
-                            <a href="{{'/posts/'+post.id}}" class="card-title">{{post.title}}</a>
-                            <div class="hstack justify-content-between mt-2" style="font-size: 10px;">
-                                <div class="hstack gap-2">
-                                    <span class="material-symbols-outlined">
-                                        schedule
-                                    </span>
-                                    <span>{{post.read_time}}</span>
-                                </div>
-                                <div class="hstack gap-2">
-                                    <span></span>
-                                    <span>{{post.created_at|date :'mediumDate'}}</span>
-                                </div>
-                            </div>
+                            <span class="card-title">{{post.title}}</span>
                         </div>
                     </div>
-
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+<app-footer></app-footer>

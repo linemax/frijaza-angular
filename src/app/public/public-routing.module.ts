@@ -19,6 +19,7 @@ import { AuthorDetailComponent } from './components/author-detail/author-detail.
 import { authorResolver } from '../admin/resolvers/author.resolver';
 import { ContactComponent } from './components/contact/contact.component';
 import { AboutComponent } from './components/about/about.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,7 @@ const routes: Routes = [
       },
       { path: 'about', component: AboutComponent },
       { path: 'contact', component: ContactComponent },
+      { path: 'privacy', component: PrivacyComponent },
 
     ]
   },
