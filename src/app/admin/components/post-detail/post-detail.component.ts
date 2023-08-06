@@ -7,15 +7,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorsResponse } from 'src/app/Interfaces/author';
 import { Post } from 'src/app/Interfaces/post';
-import { Topic, TopicsResponse } from 'src/app/Interfaces/topic';
+import { TopicsResponse } from 'src/app/Interfaces/topic';
 import { BaseService } from 'src/app/services/base.service';
 import { EditPostComponent } from '../edit-post/edit-post.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { Editor, Toolbar, Validators } from 'ngx-editor';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Photo } from 'src/app/Interfaces/photo';
-import { ImageUploadService } from 'src/app/services/image-upload.service';
 
 @Component({
   selector: 'app-post-detail',
