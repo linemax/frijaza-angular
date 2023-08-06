@@ -1,0 +1,133 @@
+{
+  "configVersion": 1,
+  "timestamp": 1691355738250,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main.69bad34e74759984.js",
+        "/manifest.webmanifest",
+        "/polyfills.d9322d66e5b0d379.js",
+        "/runtime.1a6810edebf6fa68.js",
+        "/styles.349f6ea09efa25c1.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/4649486-200.png",
+        "/assets/Frame 1.svg",
+        "/assets/autoapps_cars_57615.jpg",
+        "/assets/bg.avif",
+        "/assets/blog.avif",
+        "/assets/blog2.avif",
+        "/assets/blog3.avif",
+        "/assets/fav.svg",
+        "/assets/favicon.png",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/landing/b.jpg",
+        "/assets/landing/b1.jpg",
+        "/assets/landing/bg.svg",
+        "/assets/landing/cs.png",
+        "/assets/landing/csbg.png",
+        "/assets/landing/fr.png",
+        "/assets/landing/fs.png",
+        "/assets/landing/fsi.png",
+        "/assets/landing/h.jpg",
+        "/assets/landing/h.png",
+        "/assets/landing/istockphoto-1241710244-612x612.jpg",
+        "/assets/landing/view-3_science.webp",
+        "/assets/logo.png",
+        "/assets/logo/fd.svg",
+        "/assets/sidenav/side1.jpg",
+        "/assets/user.svg",
+        "/side1.2ae8da9e31b36957.jpg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/4649486-200.png": "d956200f57dd6657f87c8a169b47d97162e6e380",
+    "/assets/Frame 1.svg": "dc93199a96b4aca99faf658e2de91f1b4d20b98c",
+    "/assets/autoapps_cars_57615.jpg": "300f0c44ed733704f0f0a0a22cf5ca3b31ff1c55",
+    "/assets/bg.avif": "aee3cf437d005d4980ed435ae203b605ccf8bdf9",
+    "/assets/blog.avif": "a749ac8e454c86142a5b3fbe78cca2a0b68f29da",
+    "/assets/blog2.avif": "ec440a4a7a59470abf8c607d40247c1dd779b2f5",
+    "/assets/blog3.avif": "6eaf2b278e5bb007edcc94124e65835d044e8a40",
+    "/assets/fav.svg": "3064d0649aa389230d26702156ca1a1a8562f870",
+    "/assets/favicon.png": "ddbecf298fe53dee0d3c0bf3411dffb005f32119",
+    "/assets/icons/icon-128x128.png": "b1f06c7d714abb4a0cc4d1f7c954feb26826e4c4",
+    "/assets/icons/icon-144x144.png": "96a0d629765c1bc85d9263c6bc83094ca776d267",
+    "/assets/icons/icon-152x152.png": "b1fbbee3902eb96a7658e3bb006f31f78ca5a44c",
+    "/assets/icons/icon-192x192.png": "e4211163bf0911688fbfb80278d8ff4d2f77691d",
+    "/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/assets/icons/icon-72x72.png": "279825a1ac4377032ae996a1832c641e33ccf1b6",
+    "/assets/icons/icon-96x96.png": "592885efcbfee27e5e20be4fa3043589390d2740",
+    "/assets/landing/b.jpg": "738ef5ad696a71b81625c2a5a0ad3e66860008d0",
+    "/assets/landing/b1.jpg": "820cb4f4b6a2e29b0a599fb30f26809d6fb02c9e",
+    "/assets/landing/bg.svg": "f0544ce1d491f399f15a459e48f4e04b36a8d6c4",
+    "/assets/landing/cs.png": "2688c0334eedd6921c30a291c0efd3543246d652",
+    "/assets/landing/csbg.png": "dddce0a580a183291ed9012d415d41d351b4280d",
+    "/assets/landing/fr.png": "96740b5fa46f905397b4b3bc3b8caf1bf6e68f8b",
+    "/assets/landing/fs.png": "f0791ee2337f50bc566d007aec69fcfb2fdc8e3c",
+    "/assets/landing/fsi.png": "c417132ffe41622583822e8db7565b75097137ce",
+    "/assets/landing/h.jpg": "4f15b3d86db6f7d9d82b55fbacbe99feb6d42df9",
+    "/assets/landing/h.png": "3f641079b5bb413fae85f92f1e5ea479679dbfb6",
+    "/assets/landing/istockphoto-1241710244-612x612.jpg": "6cb3a8359c9038c84333877c740fc72c77ead340",
+    "/assets/landing/view-3_science.webp": "d11407e222f464fabf0c5cc009d46c97350bc5f0",
+    "/assets/logo.png": "ffd4bd632f451e568137e2a7238aa2eb4719395d",
+    "/assets/logo/fd.svg": "dfcbf18f8e26ed81e5edb2553bf6fbe0f815a8c1",
+    "/assets/sidenav/side1.jpg": "f395742bc937bfd4ef98fe540489c11bdf7f63ae",
+    "/assets/user.svg": "0b401667435ca59b45fe8762fac14f942c2ce4a2",
+    "/favicon.ico": "04c278dba3e54393c4c980f7fd4dcd43796ef813",
+    "/index.html": "b3f21247805bce8c6e0d5b64c6f10e57b3040e7a",
+    "/main.69bad34e74759984.js": "0ccf08358fdd42fd202867e9cb25f9010dc6beac",
+    "/manifest.webmanifest": "1368ffb5ace6ca62a60250663a13e1200059c69f",
+    "/polyfills.d9322d66e5b0d379.js": "bb0d9d456effd89f3fde5a367a343e635f21d411",
+    "/runtime.1a6810edebf6fa68.js": "15dfe386401221e8a4599dc63599422101a2078f",
+    "/side1.2ae8da9e31b36957.jpg": "f395742bc937bfd4ef98fe540489c11bdf7f63ae",
+    "/styles.349f6ea09efa25c1.css": "f35a71d989268e234b195895668ee50e926db0e3"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
