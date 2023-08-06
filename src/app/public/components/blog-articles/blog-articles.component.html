@@ -29,7 +29,8 @@
                                             *ngIf="!isLoading">
                                             <a routerLink="{{'/posts/'+post.id}}"
                                                 class="h2 text-decoration-none text-dark">
-                                                <img src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}"
+                                                <img style="max-width: 200px;min-height: 100px;max-height: 100px;object-fit: cover;"
+                                                    src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}"
                                                     class=" ratio ratio-21x9" [alt]="post.title">
                                             </a>
                                         </div>
@@ -45,7 +46,7 @@
                                             <div class="vstack  justify-content-between h-100 ">
                                                 <div>
                                                     <span class="fw-lighter">
-                                                        {{post.introduction.slice(0,400)+'...'}}
+                                                        {{post.introduction.slice(0,200)+'...'}}
                                                     </span>
                                                 </div>
                                                 <div class="hstack gap-3 mt-2">
@@ -254,11 +255,10 @@
         <div class="vstack gap-3">
             <div class="card border-0 shadow-sm" *ngFor="let post of posts?.data | slice:0:1">
                 <img style="max-height: 250px;object-fit: cover;"
-                    src="{{this.base.base_uri_api+ 'photos/'+ post?.photo?.id+ '/serve'}}"
-                    class="card-img-top" alt="...">
+                    src="{{this.base.base_uri_api+ 'photos/'+ post?.photo?.id+ '/serve'}}" class="card-img-top"
+                    alt="...">
                 <div class="card-body vstack gap-2 mt-3">
-                    <a routerLink="{{'/posts/'+post.id}}"
-                        class="card-title h3 latest-header">{{post.title}}</a>
+                    <a routerLink="{{'/posts/'+post.id}}" class="card-title h3 latest-header">{{post.title}}</a>
                     <p class="card-text" style="font-size: 12px;">
                         {{post.introduction.slice(0, 100)+ '...'}}
                     </p>
@@ -280,8 +280,12 @@
                 </div>
             </div>
             <div class="vstack gap-3 my-3">
-                <div class="vstack gap-2 my-3" *ngFor="let post of posts?.data | slice:1:6">
+                <div class="vstack gap-2 my-3" *ngFor="let post of posts?.data | slice:1:10">
                     <div class="vstack gap-2">
+                        <img *ngIf="(isHandset$|async)"
+                            style="width: 100%;min-height: 100px;max-height: 100px;object-fit: cover;"
+                            src="{{this.base.base_uri_api+ 'photos/'+ post.photo?.id+ '/serve'}}"
+                            class=" ratio ratio-21x9" [alt]="post.title">
                         <a routerLink="{{'/posts/'+post.id}}" style="color: black;"
                             class="latest-header">{{post.title|titlecase}}</a>
                         <div class="hstack justify-content-between fw-lighter">
@@ -294,6 +298,14 @@
                     </div>
                     <mat-divider style="background-color: black;"></mat-divider>
                 </div>
+
+                <button mat-raised-button style="width: fit-content; border-radius: 20px !important" class="mx-auto ">
+                    <div class="hstack gap-2 justify-content-center">
+                        <span class="mx-3" routerLink="topics">Read All</span>
+                        <mat-icon>chevron_right</mat-icon>
+                    </div>
+
+                </button>
             </div>
         </div>
     </div>

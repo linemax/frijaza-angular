@@ -1,21 +1,9 @@
-<!-- <div [hidden]="isToolbarHidden">
-    <mat-toolbar color="accent">
-        <div class="w-100 text-center">
-            <span class="text-center">GoodBye</span>
-        </div>
-        <div class="toolbar-close-button ms-auto">
-            <button mat-icon-button (click)="closeToolbar()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
-    </mat-toolbar>
-</div> -->
 <mat-toolbar style="background-color: whitesmoke;padding-top: 20px; padding-bottom: 20px;" class=""
     *ngIf="!(isHandset$|async)">
     <div class="hstack justify-content-between w-100 fw-bold">
         <div class="hstack gap-5">
             <a routerLink="/">
-                <img src="../../../../assets/favicon.png">
+                <img src="../../../../assets/logo/fd.svg">
             </a>
         </div>
         <div class="hstack justify-content-around w-100 " *ngIf="topics?.data">
@@ -54,7 +42,7 @@
                     <mat-icon>menu</mat-icon>
                 </button>
                 <a routerLink="/">
-                    <img src="../../../../assets/favicon.png">
+                    <img src="../../../../assets/logo/fd.svg">
                 </a>
             </div>
         </mat-toolbar-row>
@@ -65,7 +53,7 @@
             [opened]="(isHandset$ | async) === false">
             <mat-toolbar style="background-color: whitesmoke;" class="sticky-toolbar">
                 <a routerLink="/">
-                    <img src="../../../../assets/favicon.png">
+                    <img src="../../../../assets/logo/fd.svg">
                 </a>
                 <button class="ms-auto" (click)="drawer.close()" mat-icon-button>
                     <mat-icon>close</mat-icon>

@@ -150,38 +150,38 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
 
 
 
-  uploadProgress: number | undefined | null;
-  uploadSub: Subscription | undefined | null;
+  uploadComplete: boolean = false
+  uploadProgress = 0
+
 
   uploadImage(event: any) {
     if (event.target.files[0]) {
-      let form = new FormData()
-      form.append('photo', event.target.files[0])
+      let form = new FormData();
+      form.append('photo', event.target.files[0]);
       const upload$ = this.http.post<any>(
         this.base.base_uri_api + 'authors/' + this.author?.id + '/photo',
         form,
-        { observe: "response", withCredentials: true, reportProgress: true }).subscribe({
-          next: (response: HttpResponse<any>) => {
-            if (response.ok) {
-              if (event.type == HttpEventType.UploadProgress) {
-                this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-              }
-              this.snack.open('Upload complete', '', { duration: 5000 })
+        { observe: 'events', withCredentials: true, reportProgress: true }
+      ).subscribe({
+        next: (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+          } else if (event.type === HttpEventType.Response) {
+            if (event.ok) {
+              this.uploadComplete = true;
+              this.snack.open('Upload complete', '', { duration: 5000 });
+            } else {
+              this.uploadComplete = false;
+              this.snack.open('Upload failed', '', { duration: 5000 });
             }
           }
-        })
+        },
+        error: (error: any) => {
+          this.uploadComplete = false;
+          this.snack.open('Upload failed', '', { duration: 5000 });
+        }
+      });
     }
-  }
-
-
-  cancelUpload() {
-    this.uploadSub?.unsubscribe();
-    this.reset();
-  }
-
-  reset() {
-    this.uploadProgress = null;
-    this.uploadSub = null;
   }
 
   authFormGroup = new FormGroup({

@@ -14,6 +14,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { Editor, Toolbar, Validators } from 'ngx-editor';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Photo } from 'src/app/Interfaces/photo';
+import { ImageUploadService } from 'src/app/services/image-upload.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -42,6 +44,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.editor)
       this.editor.destroy();
+      // this.subscription?.unsubscribe()
   }
 
 
@@ -118,7 +121,8 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     private snack: MatSnackBar,
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    // public postService: ImageUploadService,
 
   ) {
     this.activateRoute.data.subscribe(
@@ -133,6 +137,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
           this.editPostFormGroup.controls.categories.setValue(this.post?.categories.map((value) => value.id))
         }
       });
+// this.subscription = this.postService.PostSelectionModel.changed.subscribe(value=>{
+  
+// })
+
     this.getAuthor(this.base.base_uri_api + 'authors')
     this.getcategory(this.base.base_uri_api + 'categories')
   }
@@ -165,43 +173,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     })
   }
 
-
-
-  // uploadImage(event: any) {
-  //   if (event.target.files[0]) {
-  //     let form = new FormData()
-  //     form.append('photo', event.target.files[0])
-  //     const upload$ = this.http.post<any>(
-  //       this.base.base_uri_api + 'posts/' + this.post?.id + '/photo',
-  //       form,
-  //       { observe: "response", withCredentials: true, reportProgress: true }).subscribe({
-  //         next: (response: HttpResponse<any>) => {
-  //           if (response.ok) {
-  //             if (event.type == HttpEventType.UploadProgress) {
-  //               this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-  //             }else if (event.type == HttpEventType.Response){
-
-  //             this.snack.open('upload complete', '', { duration: 5000 })
-  //             }
-  //           }
-  //         }
-  //       })
-  //   }
-  // }
-
-
-  // cancelUpload() {
-  //   this.uploadSub?.unsubscribe();
-  //   this.reset();
-  // }
-
-  // reset() {
-  //   this.uploadProgress = null;
-  //   this.uploadSub = null;
-  // }
-
+  subscription: Subscription | undefined;
   uploadComplete: boolean = false
   uploadProgress = 0
+
 
   uploadImage(event: any) {
     if (event.target.files[0]) {
@@ -220,7 +195,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
               this.uploadComplete = true;
               this.snack.open('Upload complete', '', { duration: 5000 });
               // Call a function to refresh the page after successful upload
-              this.refreshPage();
+              // this.refreshPage();
             } else {
               this.uploadComplete = false;
               this.snack.open('Upload failed', '', { duration: 5000 });
@@ -233,14 +208,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
         }
       });
     }
-  }
-
-  refreshPage() {
-    this.getPostDetails()
-  }
-
-  private getPostDetails() {
-    return this.http.get<Post>(this.base.base_uri_api + 'posts/' + this.post?.id);
   }
 
 }

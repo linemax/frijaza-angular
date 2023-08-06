@@ -15,9 +15,9 @@
 
         </div>
     </div>
+    <div class="col-md-11">
     <mat-paginator *ngIf="posts" [showFirstLastButtons]="true" (page)="paginate($event)" [length]="posts.total"
         [pageSize]="posts.per_page"></mat-paginator>
-    <div>
         <table *ngIf="posts" style="font-size: small;" mat-table [dataSource]="posts.data">
             {{posts.data.length}}
             <!-- Title Column -->

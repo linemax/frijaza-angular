@@ -25,7 +25,7 @@ export class EchoService {
     this.echoSelectionModel.select(
       new Echo({
         broadcaster: 'pusher',
-        
+
         client: new Pusher('pusher_key', {
           cluster: 'mt1',
           wsHost: 'ws.freesoulijaza.com',

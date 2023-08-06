@@ -1,4 +1,5 @@
-<div class="container-fluid mb-5">
+<div class="container-fluid mb-5 overflow-auto ">
+    <app-read-progress-bar class="ma-pr"></app-read-progress-bar>
     <div class="w-100 ps-2 hstack justify-content-between">
         <button [routerLink]="['/topics']" mat-icon-button>
             <mat-icon>arrow_back</mat-icon>
@@ -8,7 +9,7 @@
         <div class="col-md-8 col-10 mx-auto" *ngIf="!isLoading">
             <div class="vstack gap-3">
                 <span class="display-4 mb-2 fw-semibold">{{post.title}}</span>
-                <div class="ratio ratio-21x9" style="object-fit: cover; max-height: 200px;">
+                <div class="ratio ratio-21x9" style="min-height: 250px;max-height: 250px;object-fit: cover;">
                     <img style="object-fit: cover;" src="{{this.base.base_uri_api+ 'photos/'+ post.photo.id+ '/serve'}}"
                         alt="">
                 </div>
@@ -32,6 +33,14 @@
                             {{topic.name}}</span>
                     </div>
                 </div>
+
+                <!-- <div style="background-color: rgb(220, 222, 222); border-radius: 25px; width: fit-content;">
+                    <share-buttons style="width: fit-content;" theme="circles-dark"
+                        [include]="['copy', 'facebook', 'linkedin', 'pinterest', 'print', 'reddit', 'sms', 'telegram',  'twitter', 'whatsapp']"
+                        [showIcon]="true" [showText]="false" url="{{'/posts/'+post.id}}" [autoSetMeta]="true"
+                        description="{{post.title}}" class="pt-2">
+                    </share-buttons>
+                </div> -->
                 <div class="col-md-10">
                     <div class="lh-lg" [innerHTML]="sanitizer.bypassSecurityTrustHtml(post.body)"></div>
 
@@ -82,6 +91,10 @@
                                     <div class="col" *ngFor="let postTopic of category.posts">
                                         <div class="col-md-8" *ngIf="postTopic.id !== post.id">
                                             <div class="vstack gap-2">
+                                                <img *ngIf="(isHandset$|async)"
+                                                    style="width: 100%;min-height: 100px;max-height: 100px;object-fit: cover;"
+                                                    src="{{this.base.base_uri_api+ 'photos/'+ postTopic.photo?.id+ '/serve'}}"
+                                                    class=" ratio ratio-21x9" [alt]="postTopic.title">
                                                 <a routerLink="{{'/posts/'+postTopic.id}}" style="color: blue;"
                                                     class="latest-header fw-normal">{{postTopic.title|titlecase}}</a>
                                                 <div class="hstack justify-content-between fw-lighter">

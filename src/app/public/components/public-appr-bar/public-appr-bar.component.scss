@@ -52,4 +52,8 @@
     color: inherit;
     background-color: initial !important;
   }
-  
+  .sticky-toolbar{
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }

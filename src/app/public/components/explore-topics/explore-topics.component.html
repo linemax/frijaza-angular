@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="col-md-9 col-10 mx-auto my-5">
+    <div class="col-md-9 col-11 mx-auto my-5">
         <div class="vstack gap-3">
             <div class="row m-0 g-3">
                 <div class="col-md-6" *ngIf="latest">
@@ -65,8 +65,8 @@
                 <mat-card class="p-3">
                     <span class="h3">Recent Topics</span>
                     <mat-card-content>
-                        <div class="row m-0 row-cols-3 row-cols-md-5 g-3 g-lg-3">
-                            <div class="col" *ngFor="let topic of topics?.data| slice:0:5">
+                        <div class="row m-0 row-cols-2 row-cols-md-5 g-3 g-lg-3">
+                            <div class="col" *ngFor="let topic of topics?.data| slice:0:4">
                                 <mat-chip routerLink="{{topic.id}}" class="px-lg-5">{{topic.name}}</mat-chip>
                             </div>
                         </div>

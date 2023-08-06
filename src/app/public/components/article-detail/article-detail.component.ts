@@ -59,7 +59,7 @@ export class ArticleDetailComponent {
 
 
   getAuthor(url: string, pageEvent?: PageEvent) {
-    this.http.get(url, { observe: 'response', withCredentials: true, params: new HttpParams().append('with', 'posts, user, photo') }).subscribe({
+    this.http.get(url, { observe: 'response', withCredentials: true, params: new HttpParams().append('with', 'posts, user, posts.photo') }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.author = response.body
@@ -74,7 +74,7 @@ export class ArticleDetailComponent {
 
   getcategory(url: string, pageEvent?: PageEvent) {
     this.isLoading = true
-    this.http.get(url, { observe: 'response', withCredentials: true, params: new HttpParams().append('with', 'posts') }).subscribe({
+    this.http.get(url, { observe: 'response', withCredentials: true, params: new HttpParams().append('with', 'posts, posts.photo') }).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response.ok) {
           this.category = response.body

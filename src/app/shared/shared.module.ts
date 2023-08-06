@@ -38,9 +38,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { NgxEditorModule } from 'ngx-editor';
-import { CdkScrollable, ScrollingModule } from '@angular/cdk/scrolling';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 
 
@@ -92,7 +93,10 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     CdkMenuModule,
     NgxEditorModule,
     InfiniteScrollModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    ShareButtonsModule,
+    ShareIconsModule,
+
   ],
   exports: [
     CommonModule,
@@ -139,7 +143,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatSelectModule,
     CdkMenuModule, MatDialogModule,
     NgxEditorModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ShareButtonsModule,
+    ShareIconsModule,
   ],
 })
 export class SharedModule { }

@@ -3,17 +3,9 @@
         <button [routerLink]="['../']" mat-icon-button>
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <div class="hstack gap-2">
-            <button mat-raised-button (click)="prime_photo.click()" *ngIf="post.photo">
-                <span>Update Photo</span>
-            </button>
-            <input type="file" accept="image/*" name="image" [ngModel]="post.photo" #prime_photo
-                (change)="uploadImage($event)" hidden>
-
-
-        </div>
     </div>
     <div class="col-md-11 col-11 mx-auto">
+
 
         <mat-accordion>
             <mat-expansion-panel>
@@ -22,6 +14,19 @@
                         View Details
                     </mat-panel-title>
                 </mat-expansion-panel-header>
+                <div class="vstack gap-2 w-100">
+                    <button mat-raised-button (click)="prime_photo.click()" *ngIf="post.photo">
+                        <span>Update Photo</span>
+                    </button>
+                    <input type="file" accept="image/*" name="image" [ngModel]="post.photo" #prime_photo
+                        (change)="uploadImage($event)" hidden>
+
+                    <div *ngIf="uploadProgress > 0 && uploadProgress < 100" class="hstack gap-2 w-100">
+                        <mat-progress-bar mode="determinate" class="custom-spinner  w-100"
+                            [value]="uploadProgress"></mat-progress-bar>
+                       <div>{{ uploadProgress }}%</div> 
+                    </div>
+                </div>
                 <div class="col-md-10 col-10 mx-auto">
                     <div class="vstck gap-4">
                         <span class="display-3">{{post.title}}</span>
@@ -30,16 +35,18 @@
                             <div class="vstack gap-2">
                                 <button (click)="prime_photo.click()" mat-stroked-button>Upload Image</button>
 
-                                <mat-progress-bar *ngIf="uploadProgress > 0 && uploadProgress < 100" mode="determinate"
-                                    [value]="uploadProgress"></mat-progress-bar>
+                                <input type="file" accept="image/*" name="image" #prime_photo
+                                    (change)="uploadImage($event)" hidden>
+                                <div *ngIf="uploadProgress > 0 && uploadProgress < 100">
+                                    <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+                                    {{ uploadProgress }}%
+                                </div>
                             </div>
 
                             <div *ngIf="uploadComplete">
                                 Upload complete!
                             </div>
 
-                            <input type="file" accept="image/*" name="image" #prime_photo (change)="uploadImage($event)"
-                                hidden>
                         </div>
                         <div class="ratio ratio-21x9">
                             <img class="" style="object-fit: cover; max-height: 200px;"

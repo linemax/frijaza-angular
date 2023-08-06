@@ -1,6 +1,7 @@
 // Import the necessary modules
 @use 'sass:map';
 @use '@angular/material' as mat;
+@import './../node_modules/ngx-sharebuttons/themes/default.scss';
 
 // Plus imports for other components in your app.
 

@@ -27,6 +27,8 @@ import { EmailComponent } from './components/email/email.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
+import { ReadProgressBarComponent } from './components/read-progress-bar/read-progress-bar.component';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { PrivacyComponent } from './components/privacy/privacy.component';
     EmailComponent,
     AboutComponent,
     ContactComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    ReadProgressBarComponent,
+    SubscribeComponent
   ],
   imports: [
     CommonModule,
