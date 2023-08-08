@@ -14,6 +14,20 @@
           "/*.js"
         ]
       }
+    },{
+      "name": "modules",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/*-es2015.*.js",
+          "!/common-es2015.*.js",
+          "!/main-es2015.*.js",
+          "!/polyfills-es2015.*.js",
+          "!/runtime-es2015.*.js",
+          "!/vendor-es2015.*.js"
+        ]
+      }
     },
     {
       "name": "assets",
